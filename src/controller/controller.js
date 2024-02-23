@@ -3,7 +3,7 @@ const {User} = require("../model/user.model")
 exports.registrar= async (req,res)=>{
     try {
         const { nombres, apPaterno, apMaterno, correo, password} = req.body;
-        // Crear el usuario relacionado
+        // Crear el usuario 
         const usuario = new User({
             nombres,
             apPaterno,
