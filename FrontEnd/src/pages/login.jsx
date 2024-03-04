@@ -1,40 +1,39 @@
 import { useForm } from 'react-hook-form';
 
 function Login() {
-    const { register,formState: { errors } } = useForm();
-   
-    return (
-        <div className='flex justify-center items-center '>
-            <form  className='bg-slate-400 shadow-md rounded px-8 pt-6 pm-3 w-200'>
-                <h2 className='text-4xl text-center font-bold mb-4 text-black'>Login</h2>
-
-                <div className='mb-4'>
-                    <label className='bloc font-bold mb-2' htmlFor='username'>Username</label>
-                    <input type='text' {...register('username', { required: true })} id='username' className={` border  rounded w-full py-2 bg-sky-200 text-gray-700 `} placeholder='Username'/>
-                    {
-                    errors.username && (
-                        <p className='text-red-500'>Username es Requerido</p>
-                    )
-                }
-                </div>
-
-                
-                <div className='mb-6'>
-                    <label className='block' htmlFor='password'>Contraseña</label>
-                    <input type='password' {...register('password', { required: true })} id='password' className={` border  rounded w-full py-2 bg-sky-200 text-gray-700 `} placeholder='Contraseña'/>
-                    {
-                    errors.password && (
-                        <p className='text-red-500'>Contraseña es Requerido</p>
-                    )
-                }
-                </div>
-                
-                <div className='flex items-center justify-center'>
-                    <button type='submit' className= ''>Registrarse</button>
-                </div>
-            </form>
-        </div>
-    );
+  return (
+    <div className="flex">
+      <div className="container">
+        <form>
+          <h1 className="titulo">Iniciar sesión</h1>
+          <div>
+            <input className="input" id="username" type="text" placeholder="Nombre(s)" />
+          </div>
+          <div>
+            <input className="input" id="password" type="password" placeholder="Contraseña" />
+          </div>
+          <div class='checkContainer'>
+            <input className="checkbox" type="checkbox" />
+            <span className="txt">Recuérdame</span>
+          </div>
+          <div className='separador'>
+            <div className='linea1'></div>
+            <p className='continuar'>O continua con: </p>
+            <div className='linea2'></div>
+          </div>
+          <div className='redes'>
+            <img className='redesLogos' src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png" alt="facebook" />
+            <img className='redesLogos' src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png" alt="gmail" />
+          </div>
+          <button className="btn" type="submit">Entrar</button>
+          <p className="txt">No tienes una cuenta aún? <a href="/register">Registrate</a></p>
+        </form>
+      </div>
+      <div className="aside">
+        <img className="fondo" src="https://i.pinimg.com/736x/da/54/23/da542336e9bb92257fe2b2aedf30060a.jpg" alt="Fondo" />
+      </div>
+    </div>
+  );
 }
 
 export default Login;
