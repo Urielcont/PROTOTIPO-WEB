@@ -21,21 +21,23 @@ body{
   margin-left: 5rem;
   margin-top: 5rem;
 }
-
 .aside {
     position: absolute;
     margin-left: 50%;
     height: 43rem;
     width: 49rem;
-    background-color: #009DA3;
+    background-image: url('https://i.pinimg.com/736x/da/54/23/da542336e9bb92257fe2b2aedf30060a.jpg');
+    background-size: cover; /* Escala la imagen para cubrir todo el fondo */
+    background-position: center; 
+    align-items: center;
 }
+.info{
+    height: 65%;
+    width: 60%;
 
-.fondo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    margin-top: 15%;
+    margin-left: 20%;
 }
-
 .titulo {
   color: #009DA3;
   font-family: 'Segoe UI';
@@ -119,4 +121,8 @@ body{
     width: 2rem;
     padding-right: 5rem;
     padding-left: 5rem;
+}
+.logo{
+    height: 2rem;
+    width: 2rem;
 }

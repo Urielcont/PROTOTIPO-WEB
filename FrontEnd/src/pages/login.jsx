@@ -30,7 +30,11 @@ function Login() {
         </form>
       </div>
       <div className="aside">
-        <img className="fondo" src="https://i.pinimg.com/736x/da/54/23/da542336e9bb92257fe2b2aedf30060a.jpg" alt="Fondo" />
+        <div className='info'>
+            <h1>Bienvenido</h1>
+            <img src="../assets/logo.png" alt="logo" />
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis veritatis fuga repudiandae nostrum exercitationem quo, fugit necessitatibus? Non vel reprehenderit architecto hic, explicabo dolorem autem minima aspernatur eum magnam id!</p>
+        </div>
       </div>
     </div>
   );
