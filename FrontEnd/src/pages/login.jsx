@@ -1,6 +1,7 @@
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 
 function Login() {
+  // const [form,setform]=  useForm();
   return (
     <div className="flex">
       <div className="container">
@@ -12,7 +13,7 @@ function Login() {
           <div>
             <input className="input" id="password" type="password" placeholder="Contraseña" />
           </div>
-          <div class='checkContainer'>
+          <div className='checkContainer'>
             <input className="checkbox" type="checkbox" />
             <span className="txt">Recuérdame</span>
           </div>

@@ -11,6 +11,7 @@ exports.registrar= async (req,res)=>{
             correo,
             password,
         });
+        console.log(usuario);
         await usuario.save();
         res.status(201).json({ message: 'usuario creado correctamente', usuario });
     } catch (error) {

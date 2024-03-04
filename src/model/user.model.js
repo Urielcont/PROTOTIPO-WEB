@@ -10,9 +10,7 @@ const userSchema= new mongoose.Schema({
     },
     apMaterno:{
         type:String,
-        required:true,
-        trim:true,
-        unique:true
+        required:true
     },
     correo:{
         type:String,
@@ -26,6 +24,7 @@ const userSchema= new mongoose.Schema({
      
 
 );
+
 userSchema.pre("save", async function(next) {
     if (!this.isModified("password")) {
         return next();
