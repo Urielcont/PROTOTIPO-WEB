@@ -6,7 +6,7 @@ const router =express.Router();
 // ---------RUTA PARA USUARIOS---------
 
 // Ruta para registrarse
-router.post('/registrarse',controlador.registrar);
+router.post('/registrar',controlador.registrar);
 router.get('/registrarse',controlador.Mostrarusuario);
 
 module.exports = router;
