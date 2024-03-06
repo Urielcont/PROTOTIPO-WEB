@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 
-const phSchema= new mongoose.Schema({
+const turbidez= new mongoose.Schema({
     fecha:{
         type:Date,
     },
-    nivel_ph:{
+    nivel_turbidez:{
         type:String,
         require:true,
     },
@@ -15,8 +15,8 @@ const phSchema= new mongoose.Schema({
 },
 );
 
-const PH = mongoose.model('PH',phSchema);
+const Turbidez = mongoose.model('Turbidez',turbidez);
 
 
-module.exports={PH};
+module.exports={Turbidez};
 
