@@ -3,7 +3,8 @@ const connectDB = require("./config/ConfigDb.js");
 // requerir paquetes de express
 const express = require("express");
 const rutas = require("./routes/rutas.js")
- 
+const cors = require("cors");
+
 
 // Comenzar app express
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 connectDB();
 
 // middleware
+app.use(cors({origin:'http://localhost:5173'}));
 app.use(express.json());
 app.use('/api', rutas);
 // Asignar puerto 3000

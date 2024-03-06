@@ -5,12 +5,8 @@ const userSchema= new mongoose.Schema({
     nombres:{
         type:String,
     },
-    apPaterno:{
+    telefono:{
         type:String,
-    },
-    apMaterno:{
-        type:String,
-        required:true
     },
     correo:{
         type:String,

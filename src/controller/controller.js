@@ -2,12 +2,11 @@ const {User} = require("../model/user.model")
 // Registrar un nuevo usuario
 exports.registrar= async (req,res)=>{
     try {
-        const { nombres, apPaterno, apMaterno, correo, password} = req.body;
+        const { nombres, telefono, correo, password} = req.body;
         // Crear el usuario 
         const usuario = new User({
             nombres,
-            apPaterno,
-            apMaterno,
+            telefono,
             correo,
             password,
         });
