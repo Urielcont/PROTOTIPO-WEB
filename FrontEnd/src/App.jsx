@@ -7,7 +7,6 @@ import CalidadPage from './pages/calidad';
 import FlujoPage from './pages/flujo';
 import VentasPage from './pages/ventas';
 import PerfilPage from './pages/perfil';
-import './App.css'
 import { AuthProvider } from './context/Auth.context';
 // import { AuthProvider } from './context/Auth.context';
 

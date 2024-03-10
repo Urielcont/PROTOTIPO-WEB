@@ -1,3 +1,4 @@
+// const styles = require ("../assets/styles/registers.js");
 import {useForm,} from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
 import { useEffect } from "react";
@@ -27,7 +28,7 @@ function Register() {
         ))}
         <form onSubmit={onSubmit}>
 
-          <h1 className="titulo">Registrar</h1>
+          <h1 className="text-red-500">Registrar</h1>
           <div>
             <input className="input" id="nombres" type="text" placeholder="Nombre(s)" {...register('nombres',{required:true})}/>
             {errors.nombres && <p className="text-red-500">nombres es requerido</p>}
