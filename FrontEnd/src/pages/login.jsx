@@ -27,7 +27,7 @@ function Login() {
             <img className='redesLogos' src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png" alt="gmail" />
           </div>
           <button className="btn" type="submit">Entrar</button>
-          <p className="txt">No tienes una cuenta aún? <a href="/register">Registrate</a></p>
+          <p className="txt">No tienes una cuenta aún? <a href="/registrar">Registrate</a></p>
         </form>
       </div>
       <div className="aside">

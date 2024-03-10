@@ -9,7 +9,7 @@ export const useAuth=()=>{
     }
     return context;
 }
-export const AuthProvider=({children})=>{
+export const AuthProvider=({ children })=>{
 
     const [user,setUser]=useState(null)
     const [isAuth,setIsAuth]=useState(false);
@@ -20,7 +20,7 @@ export const AuthProvider=({children})=>{
             setUser(res.data);
             setIsAuth(true);
         } catch (error) {
-
+            console.log(error);
             setErrors(error.response.data)
         }
     };

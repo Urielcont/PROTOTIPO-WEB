@@ -59,7 +59,7 @@ function Register() {
             <img className='redesLogos' src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png" alt="gmail" />
           </div>
           <button className="btn" type="submit">Entrar</button>
-          <p className="txt">No tienes una cuenta aún? <a href="/registrarse">Registrate</a></p>
+          <p className="txt">Ya tienes una cuenta?<a href="/login">Inicia sesión</a></p>
         </form>
       </div>
       <div className="aside">
