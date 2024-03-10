@@ -3,6 +3,10 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Login from './pages/login';
 import Register from './pages/registrar';
 import InicioPage from './pages/inicio';
+import CalidadPage from './pages/calidad';
+import FlujoPage from './pages/flujo';
+import VentasPage from './pages/ventas';
+import PerfilPage from './pages/perfil';
 import './App.css'
 
 function App() {
@@ -15,6 +19,10 @@ function App() {
             <Route path="/login" element ={<Login/>}/>
             <Route path="/registrar" element ={<Register/>}/>
             <Route path='/Inicio' element={<InicioPage/>}></Route>
+            <Route path='/Calidad' element={<CalidadPage/>}></Route>
+            <Route path='/Flujo' element={<FlujoPage/>}></Route>
+            <Route path='/Ventas' element={<VentasPage/>}></Route>
+            <Route path='/Perfil' element={<PerfilPage/>}></Route>
         </Routes>
     </BrowserRouter>
   )

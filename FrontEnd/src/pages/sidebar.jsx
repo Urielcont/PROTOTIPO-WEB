@@ -30,24 +30,24 @@ function Sidepage() {
           </div>
 
           <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer ">
-            <i className="bi bi-house-door-fill hover:text-blue-700"></i>
-            <h1 className="text-[17px] ml-4 text-black hover:text-blue-700">Inicio</h1>
+            <a href="/Inicio"><i className="bi bi-house-door-fill hover:text-blue-700"></i></a>
+            <a href="/Inicio"><h1 className="text-[17px] ml-4 text-black hover:text-blue-700">Inicio</h1></a>
           </div>
           <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
-            <i className="bi bi-droplet-half hover:text-blue-700"></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700">Calidad</span>
+            <a href="/Calidad"><i className="bi bi-droplet-half hover:text-blue-700"></i></a>
+            <a href="/Calidad"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Calidad</span></a>
           </div>
           <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
-            <i className="bi bi-arrow-left-right hover:text-blue-700 "></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700">Flujo</span>
+            <a href="/Flujo"><i className="bi bi-arrow-left-right hover:text-blue-700 "></i></a>
+            <a href="/Flujo"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Flujo</span></a>
           </div>
           <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
-            <i className="bi bi-graph-up-arrow hover:text-blue-700"></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700">Ventas</span>
+            <a href="/Ventas"><i className="bi bi-graph-up-arrow hover:text-blue-700"></i></a>
+            <a href="/Ventas"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Ventas</span></a>
           </div>
           <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
-            <i className="bi bi-person-circle hover:text-blue-700"></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700">Perfil</span>
+            <a href="/Perfil"><i className="bi bi-person-circle hover:text-blue-700"></i></a>
+            <a href="/Perfil"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Perfil</span></a>
           </div>
 
           <hr className="my-4 text-gray-600" />
