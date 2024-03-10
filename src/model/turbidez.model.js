@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const turbidez= new mongoose.Schema({
     fecha:{
-        type:Date,
+        type:String,
     },
     nivel_turbidez:{
         type:String,

@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 
 const phSchema= new mongoose.Schema({
     fecha:{
-        type:Date,
+        type:String,
     },
     nivel_ph:{
-        type:String,
+        type:Number,
         require:true,
     },
     status:{

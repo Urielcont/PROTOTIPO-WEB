@@ -1,29 +1,50 @@
 import {useForm,} from "react-hook-form";
-import { Link } from "react-router-dom";
-import { RegistrarUsuario } from "../api/auth"
+import { useAuth } from "../context/Auth.context";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 function Register() {
-  const {register, handleSubmit}=useForm()
+  const {signup,errors: registerErrors,isAuth }=useAuth();
+  const {register, handleSubmit, formState:{errors}}=useForm();
+
+  const navigate = useNavigate();
+  
+  useEffect(()=>{
+    if(isAuth) navigate('/login');
+  },[isAuth]);
+
+  const onSubmit=handleSubmit(async (values)=>{ 
+    await signup(values);
+
+    })
+ 
   return (
     <div className="flex">
       <div className="container">
-        <form onSubmit={handleSubmit(async (values)=>{
-          console.log(values);
-          const res= await RegistrarUsuario(values);
-          console.log("Se registró correctamente: ", res)
-        })}>
+      {registerErrors.map((error, i) => (
+          <div className="errordiv" key={i}>
+            {error}
+          </div>
+        ))}
+        <form onSubmit={onSubmit}>
+
           <h1 className="titulo">Registrar</h1>
           <div>
-            <input className="input" id="nombres" type="text" placeholder="Nombre(s)" {...register('nombres')}/>
+            <input className="input" id="nombres" type="text" placeholder="Nombre(s)" {...register('nombres',{required:true})}/>
+            {errors.nombres && <p className="text-red-500">nombres es requerido</p>}
           </div>
           <div>
-            <input className="input" id="telefono" type="text" placeholder="telefono"{...register('telefono')}/>
+            <input className="input" id="telefono" type="text" placeholder="telefono"{...register('telefono',{required:true})}/> 
+            {errors.telefono && <p className="text-red-500">telefono es requerido</p>}        
           </div>
           <div>
-            <input className="input" id="correo" type="text" placeholder="correo"{...register('correo')}/>
+            <input className="input" id="correo" type="text" placeholder="correo"{...register('correo',{required:true})}/>
+            {errors.correo && <p className="text-red-500">Correo es requerido</p>}
           </div>
           <div>
-            <input className="input" id="password" type="password" placeholder="Contraseña"{...register('password')}/>
+            <input className="input" id="password" type="password" placeholder="Contraseña"{...register('password',{required:true})}/>
+            {errors.password && <p className="text-red-500">Contraseña es requerido</p>}
           </div>
+          
           <div className='checkContainer'>
             <input className="checkbox" type="checkbox" />
             <span className="txt">Recuérdame</span>

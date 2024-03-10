@@ -1,12 +1,13 @@
 const express = require("express");
-
-const controlador = require("../controller/controller.js");
+const usuario = require("../controller/controller.js");
+const ph = require("../controller/ph.controller.js");
+const turbidez = require("../controller/turbidez.controller.js");
 
 const router =express.Router();
-// ---------RUTA PARA USUARIOS---------
-
-// Ruta para registrarse
-router.post('/registrar',controlador.registrar);
-router.get('/registrarse',controlador.Mostrarusuario);
+router.post('/registrar',usuario.registrar);
+router.post('/ph',ph.subirPH);
+router.post('/turbidez',turbidez.subirTurbidez);
+// router.get('/ph',ph.subirPH);
+// router.get('/turbidez',turbidez.MostrarTurbidez);
 
 module.exports = router;

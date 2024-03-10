@@ -12,6 +12,11 @@ body{
     margin-left: -8rem;
 
 }
+.errorDiv{
+    background-color: red;
+    color: black;
+    
+}
 .container {
     position: absolute;
   border: 3px solid #009DA3;

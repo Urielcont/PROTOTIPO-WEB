@@ -11,7 +11,7 @@ exports.subirTurbidez= async (req,res)=>{
         });
         console.log(turbidez);
         await turbidez.save();
-        res.status(201).json({ message: 'usuario creado correctamente', turbidez });
+        res.status(201).json({ message: 'Turbidez subida correctamente', turbidez });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al crear el usuario' });
