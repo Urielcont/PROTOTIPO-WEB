@@ -1,5 +1,6 @@
 const {User} = require("../model/user.model");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
+
 const { CreateAccessToken } = require("../libs/jwt");
 // Registrar un nuevo usuario
 exports.registrar= async (req,res)=>{
@@ -29,11 +30,35 @@ exports.registrar= async (req,res)=>{
     }
 
 }
-const login=(req,res)=>{
 
-};
+exports.login = async (req, res) => {
+  const { correo, password } = req.body;
+  try {
+    // Encuentra la información del usuario por su correo
+    const userFound = await User.findOne({ correo });
 
-exports.Mostrarusuario= async(req,res)=>{
-    const users= await User.find()
-    res.json(users)
+    if (!userFound) return res.status(400).json({ message: "El usuario no se encontró" });
+
+    // Compara las contraseñas
+    const passwordMatch = await bcrypt.compare(password, userFound.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({ message: 'Credenciales incorrectas' });
+    }
+
+    const token = await CreateAccessToken({ id: userFound._id });
+    res.cookie('token', token);
+    res.json({
+      message: "Usuario logeado correctamente",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+exports.logout= async(req,res)=>{
+  res.cookie("token", "",{
+    expires: new Date(0),
+  });
+  return res.sendStatus(200);
 }
