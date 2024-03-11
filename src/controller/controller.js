@@ -11,6 +11,9 @@ exports.registrar= async (req,res)=>{
         if (userFound){
             return res.status(400).json(["la cuenta ya esta en uso"]);
         }
+        if (telefono){
+          return res.status(400).json(["El telefono ya esta en uso"]);
+      }
         const passwordHash= await bcrypt.hash(password,10);
             // Crear el usuario 
         const usuario = new User({

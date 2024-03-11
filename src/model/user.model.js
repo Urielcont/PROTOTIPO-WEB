@@ -8,6 +8,7 @@ const userSchema= new mongoose.Schema({
     },
     telefono:{
         type:String,
+        unique:true
     },
     correo:{
         type:String,
