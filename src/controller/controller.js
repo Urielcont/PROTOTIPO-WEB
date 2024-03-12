@@ -5,19 +5,18 @@ const { CreateAccessToken } = require("../libs/jwt");
 // Registrar un nuevo usuario
 exports.registrar= async (req,res)=>{
    
-        const { nombres, telefono, correo, password} = req.body;
+        const { nombres, apellidoPaterno, apellidoMaterno, telefono, correo, password} = req.body;
         try {
         const userFound = await User.findOne({correo});
         if (userFound){
             return res.status(400).json(["la cuenta ya esta en uso"]);
         }
-        if (telefono){
-          return res.status(400).json(["El telefono ya esta en uso"]);
-      }
         const passwordHash= await bcrypt.hash(password,10);
             // Crear el usuario 
         const usuario = new User({
-            nombres,  
+            nombres,
+            apellidoPaterno,
+            apellidoMaterno,  
             telefono,
             correo,
             password:passwordHash,
@@ -64,4 +63,19 @@ exports.logout= async(req,res)=>{
     expires: new Date(0),
   });
   return res.sendStatus(200);
+}
+
+exports.perfil=async(req,res)=>{
+  const userFound = await User.findById(req.user.id)
+
+  if(!userFound) return res.status(400).json({message:"Usuario no encontrado"});
+
+  return res.json({
+    id:userFound._id,
+    nombres:userFound.nombres,
+    apellidoPaterno:userFound.apellidoPaterno,
+    apellidoMaterno:userFound.apellidoMaterno,
+    telefono:userFound.telefono,
+    correo:userFound.correo,
+  })
 }

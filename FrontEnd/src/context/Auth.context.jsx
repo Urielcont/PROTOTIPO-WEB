@@ -14,6 +14,7 @@ export const AuthProvider=({ children })=>{
     const [user,setUser]=useState(null)
     const [isAuth,setIsAuth]=useState(false);
     const [errors, setErrors]=useState([]);
+    
     const signup=async(user)=>{
         try {
             const res= await RegistrarUsuario(user);

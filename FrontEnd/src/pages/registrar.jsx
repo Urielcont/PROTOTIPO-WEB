@@ -23,7 +23,7 @@ function Register() {
   return (
 <div className="w-screen h-screen flex justify-center items-center">
   <div className="flex">
-    <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-2">
+    <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-">
       {registerErrors.map((error, i) => (
         <div className="errordiv" key={i}>
           {error}
@@ -32,8 +32,8 @@ function Register() {
       <form onSubmit={onSubmit} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
         <h1 className="text-2xl text-black-900 mb-4">Registrar</h1>
         <div className="mb-4">
-          <input className="border-b-2 border-solid border-cyan-600 w-full" id="nombre" type="text" placeholder="Nombre(s)" {...register('nombre', { required: true })} />
-          {errors.nombre && <p className="text-red-500">nombre es requerido</p>}
+          <input className="border-b-2 border-solid border-cyan-600 w-full" id="nombre" type="text" placeholder="Nombre(s)" {...register('nombres', { required: true })} />
+          {errors.nombres && <p className="text-red-500">nombre es requerido</p>}
         </div>
         <div className="mb-4">
           <input className="border-b-2 border-solid border-cyan-600 w-full" id="apellidoPaterno" type="text" placeholder="Apellido Paterno" {...register('apellidoPaterno', { required: true })} />

@@ -4,7 +4,12 @@ const bcrypt = require("bcrypt");
 const userSchema= new mongoose.Schema({
     nombres:{
         type:String,
-
+    },
+    apellidoPaterno:{
+        type:String,
+    },
+    apellidoMaterno:{
+        type:String,
     },
     telefono:{
         type:String,
