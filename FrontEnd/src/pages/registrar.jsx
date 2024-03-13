@@ -42,7 +42,7 @@ function Register() {
           {errors.apellidoMaterno && <p className="text-red-500">El apellido materno es requerido</p>}
         </div>
         <div className="mb-4">
-          <input className="border-b-2 border-solid border-cyan-600 w-full" id="telefono" type="text" placeholder="telefono" {...register('telefono', { required: true })} />
+          <input maxLength={10} className="border-b-2 border-solid border-cyan-600 w-full" id="telefono" type="text" placeholder="telefono" {...register('telefono', { required: true })} />
           {errors.telefono && <p className="text-red-500">telefono es requerido</p>}
         </div>
         <div className="mb-4">
