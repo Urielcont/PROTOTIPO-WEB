@@ -24,11 +24,9 @@ function Register() {
 <div className="w-screen h-screen flex justify-center items-center">
   <div className="flex">
     <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-">
-      {registerErrors.map((error, i) => (
-        <div className="errordiv" key={i}>
-          {error}
-        </div>
-      ))}
+    {registerErrors.map((error, i) => (
+          <Message message={error} key={i} />
+        ))}
       <form onSubmit={onSubmit} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
         <h1 className="text-2xl text-black-900 mb-4">Registrar</h1>
         <div className="mb-4">
