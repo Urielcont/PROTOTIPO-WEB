@@ -1,6 +1,7 @@
 import { createContext, useState,useContext} from "react";
-import { RegistrarUsuario, loginRequest } from "../api/auth";
+import { RegistrarUsuario, login } from "../api/auth";
 export const AuthContext=createContext()
+import PropTypes from 'prop-types';
 
 export const useAuth=()=>{
     const context=useContext(AuthContext)
@@ -26,15 +27,18 @@ export const AuthProvider=({ children })=>{
         }
     };
 
-    const signin=async(user)=>{
-        try {
-            const res=await loginRequest(user)
-            console.log(res)
-        } catch (error) {
-            setErrors(error.response.data)
-        }
 
-    };
+    const signin = async (user) => {
+        try{
+            const res= await login(user);
+            console.log(res.data);
+            setUser(res.data);
+            setIsAuth(true);
+        }catch(error){
+            console.log(error);
+            setErrors(error.response.data)
+        }};
+
     return(
         <AuthContext.Provider value={{
             signup,
@@ -47,3 +51,9 @@ export const AuthProvider=({ children })=>{
         </AuthContext.Provider>
     )
 }
+
+
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+

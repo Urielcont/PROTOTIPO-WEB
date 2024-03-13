@@ -1,34 +1,35 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
+import {useNavigate} from 'react-router-dom'
 
 import logo from "../assets/images/logo_copy.png"
 
 function Login() {
-  const {signin, errors: loginErrors} = useAuth();
-  const { register, handleSubmit, formState: {errors}} = useForm();
+  const { signin, errors: registerErrors, isAuth} = useAuth();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (isAuth) navigate('/login');
-  // }, [isAuth]);
-
-  const onSubmit = handleSubmit(data=>{
-    signin(data);
+  useEffect(()=>{
+      if (isAuth) navigate("/Inicio");
+  }, [isAuth])
+  const onSubmit= handleSubmit((data) => {
+      signin(data);
   });
 
   return (
 <div className="w-screen h-screen flex justify-center items-center">
   <div className="flex">
     <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-16">
-    {loginErrors.map((error, i) => (
-          <Message message={error} key={i} />
-        ))}
-      <form onSubmit={onSubmit} className="p-8 flex flex-col"> 
+      {registerErrors.map((error, i) => (
+        <div className="errordiv" key={i}>
+          {error}
+        </div>
+      ))}
+      <form onSubmit={onSubmit} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
         <h1 className="text-2xl text-black-900 mb-4">Iniciar sesión</h1>
+
 
         <div className="mb-4">
           <input className="border-b-2 border-solid border-cyan-600 w-full" id="correo" type="text" placeholder="correo" {...register('correo', { required: true })} />
