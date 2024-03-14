@@ -1,3 +1,4 @@
+import { useState } from "react"; 
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
 import { useEffect } from "react";
@@ -9,6 +10,7 @@ import logo from "../assets/images/logo_copy.png"
 function Register() {
   const { signup, errors: registerErrors, isAuth } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [formCompleted, setFormCompleted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,17 +21,22 @@ function Register() {
   const onSubmit = handleSubmit( (values) => {
     signup(values);
   });
+  const checkFormCompletion = () => {
+    const correo = document.getElementById("correo").value;
+    const password = document.getElementById("password").value;
+    setFormCompleted(correo !== "" && password !== "");
+  };
 
   return (
 <div className="w-screen h-screen flex justify-center items-center">
   <div className="flex">
-    <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-">
+    <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-4">
     {registerErrors.map((error, i) => (
-          <div key={i}>
+          <div className="bg-red-500 p-2 text-white text-center m-2" key={i}>
             {error}
           </div>
         ))}
-      <form onSubmit={onSubmit} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
+      <form onSubmit={onSubmit} onChange={checkFormCompletion} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
         <h1 className="text-2xl text-black-900 mb-4">Registrar</h1>
         <div className="mb-4">
           <input className="border-b-2 border-solid border-cyan-600 w-full" id="nombre" type="text" placeholder="Nombre(s)" {...register('nombres', { required: true })} />
@@ -69,7 +76,18 @@ function Register() {
           <img className='h-10 w-10 mx-2' src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png" alt="gmail" />
         </div>
         {/* Botón de entrada centrado */}
-        <button className="bg-white hover:bg-blue-700 text-blue-700 hover:text-white font-bold py-2 px-4 rounded-full mb-4 self-center border border-blue-700 hover:border-transparent" type="submit">Entrar</button>
+        <button
+              type="submit"
+              disabled={!formCompleted}
+              id="botonIngresar"
+              className={`rounded-full self-center text-white p-2 w-36 ${
+                formCompleted
+                  ? "bg-blue-500 hover:bg-blue-600"
+                  : "disabled-button"
+              }`}
+            >
+              Entrar
+            </button>
         <p className="text-gray-700">Ya tienes una cuenta?<a href="/login" className="text-blue-500">Inicia sesión</a></p>
       </form>
     </div>
