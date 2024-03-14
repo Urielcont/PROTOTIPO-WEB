@@ -1,6 +1,7 @@
 const {User} = require("../model/user.model");
 const bcrypt = require("bcrypt");
-
+const jwt =require('jsonwebtoken')
+const { TOKEN_SECRET} =require("../config")
 const { CreateAccessToken } = require("../libs/jwt");
 // Registrar un nuevo usuario
 exports.registrar= async (req,res)=>{
@@ -50,7 +51,12 @@ exports.login = async (req, res) => {
     const token = await CreateAccessToken({ id: userFound._id });
     res.cookie('token', token);
     res.json({
-      message: "Usuario logeado correctamente",
+      id:userFound._id,
+      nombres:userFound.nombres,
+      apellidoPaterno:userFound.apellidoPaterno,
+      apellidoMaterno:userFound.apellidoMaterno,
+      telefono:userFound.telefono,
+      correo:userFound.correo,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -76,5 +82,27 @@ exports.perfil=async(req,res)=>{
     apellidoMaterno:userFound.apellidoMaterno,
     telefono:userFound.telefono,
     correo:userFound.correo,
+  })
+}
+
+exports.verifyToken=async(req,res)=>{
+  const {token} =req.cookies;
+
+  if(!token) return res.send(false)
+
+  jwt.verify(token, TOKEN_SECRET,async(error,user)=>{
+    if(error) return res.status(401).json({message:"Sin autorización"})
+
+    const userFound= await User.findById(user.id)
+    if(!userFound)return res.status(401).json({message:"Sin autorización"})
+
+    return res.json({
+      id:userFound._id,
+      nombres:userFound.nombres,
+      apellidoPaterno:userFound.apellidoPaterno,
+      apellidoMaterno:userFound.apellidoMaterno,
+      telefono:userFound.telefono,
+      correo:userFound.correo,
+    })
   })
 }
