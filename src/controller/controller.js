@@ -20,6 +20,7 @@ exports.registrar= async (req,res)=>{
             telefono,
             correo,
             password:passwordHash,
+            estatus:true
         });
         await user.save();
         const token = await CreateAccessToken({id:user._id});
@@ -105,4 +106,19 @@ exports.verifyToken=async(req,res)=>{
       correo:userFound.correo,
     })
   })
+}
+
+
+exports.bajalogicaUser=async(req,res)=>{
+  try {
+    const usuario = await User.findByIdAndUpdate(req.params.idUser, {
+      estatus: false,
+      fechaEliminacion: new Date() 
+  }, { new: true });
+
+    res.status(200).json({ message: "Baja lógica de Usuario",usuario });
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al realizar la baja lógica del usuario " });
+}
 }

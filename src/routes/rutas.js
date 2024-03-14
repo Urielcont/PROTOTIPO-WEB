@@ -29,4 +29,6 @@ router.get('/flujo',flujo.MostrarUltimoFlujo);
 
 router.get('/turbidez',turbidez.MostrarUltimaTurbidez);
 
+
+router.put('/bajaUsuario/:idUser',userFound.bajalogicaUser)
 module.exports = router;
