@@ -20,7 +20,7 @@ router.post('/turbidez',turbidez.subirTurbidez);
 
 router.get('/perfil', authRequired, perfil.perfil);
 
-// router.get('/ph',ph.subirPH);
+router.get('/ph',ph.MostrarUltimoPH);
 // router.get('/turbidez',turbidez.MostrarTurbidez);
 
 module.exports = router;
