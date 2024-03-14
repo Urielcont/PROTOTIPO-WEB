@@ -23,6 +23,14 @@ const userSchema= new mongoose.Schema({
         type:String,
         required:true,
     },
+    estatus:{
+        type:Boolean,
+        required:true
+    },
+    fechaEliminacion:{
+        type:Date,
+        default:null
+    }
 },
      
 
