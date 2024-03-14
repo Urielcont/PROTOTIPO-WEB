@@ -2,9 +2,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import Logo from "../assets/images/logo.png";
+import { useAuth } from '../context/Auth.context';
 
 function Sidepage() {
 
+  const {isAuth, logout}= useAuth();
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -68,7 +70,11 @@ function Sidepage() {
           
           <div className="p-2 mt-10 flex items-center rounded-md px-4 duration-300 cursor-pointer">
             <i className="bi bi-box-arrow-in-right hover:text-blue-700"></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700">Logout</span>
+            <span className="text-[17px] ml-4 text-black hover:text-blue-700" to="/" onClick={()=>{
+              logout()}}>Logout</span>
+            {/* <link className="text-[17px] ml-4 text-black hover:text-blue-700" to="/" onClick={()=>{
+              logout()
+            }}>logout</link> */}
           </div>
         </div>
       </div>
