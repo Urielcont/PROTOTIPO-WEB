@@ -7,13 +7,13 @@ import {useNavigate} from 'react-router-dom'
 import logo from "../assets/images/logo_copy.png"
 
 function Login() {
-  const { signin, errors: loginErrors} = useAuth();
+  const { signin, errors: loginErrors, isAuth} = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
-  // useEffect(()=>{
-  //     if (isAuth) navigate("/Inicio");
-  // }, [isAuth])
+  useEffect(()=>{
+      if (isAuth) navigate("/Inicio");
+  }, [isAuth])
   const onSubmit= handleSubmit((data) => {
       signin(data);
   });
