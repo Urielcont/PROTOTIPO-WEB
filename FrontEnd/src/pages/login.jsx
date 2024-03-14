@@ -7,13 +7,13 @@ import {useNavigate} from 'react-router-dom'
 import logo from "../assets/images/logo_copy.png"
 
 function Login() {
-  const { signin, errors: registerErrors, isAuth} = useAuth();
+  const { signin, errors: loginErrors} = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-      if (isAuth) navigate("/Inicio");
-  }, [isAuth])
+  // useEffect(()=>{
+  //     if (isAuth) navigate("/Inicio");
+  // }, [isAuth])
   const onSubmit= handleSubmit((data) => {
       signin(data);
   });
@@ -22,17 +22,17 @@ function Login() {
 <div className="w-screen h-screen flex justify-center items-center">
   <div className="flex">
     <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-16">
-      {registerErrors.map((error, i) => (
-        <div className="errordiv" key={i}>
+      {loginErrors.map((error, i) => (
+        <div className="bg-red-500 p-2 text-white text-center m-2" key={i}>
           {error}
         </div>
       ))}
-      <form onSubmit={onSubmit} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
+      <form onSubmit={onSubmit} className="p-8 flex flex-col">
         <h1 className="text-2xl text-black-900 mb-4">Iniciar sesión</h1>
 
 
         <div className="mb-4">
-          <input className="border-b-2 border-solid border-cyan-600 w-full" id="correo" type="text" placeholder="correo" {...register('correo', { required: true })} />
+          <input className="border-b-2 border-solid border-cyan-600 w-full" id="correo" type="email" placeholder="correo" {...register('correo', { required: true })} />
           {errors.correo && <p className="text-red-500">Correo es requerido</p>}
         </div>
         <div className="mb-4">

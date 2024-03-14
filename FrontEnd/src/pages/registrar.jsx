@@ -16,8 +16,8 @@ function Register() {
     if (isAuth) navigate('/login');
   }, [isAuth]);
 
-  const onSubmit = handleSubmit(async (values) => {
-    await signup(values);
+  const onSubmit = handleSubmit( (values) => {
+    signup(values);
   });
 
   return (
@@ -25,7 +25,9 @@ function Register() {
   <div className="flex">
     <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-">
     {registerErrors.map((error, i) => (
-          <Message message={error} key={i} />
+          <div key={i}>
+            {error}
+          </div>
         ))}
       <form onSubmit={onSubmit} className="p-8 flex flex-col"> {/* Ahora el formulario se comporta como una columna */}
         <h1 className="text-2xl text-black-900 mb-4">Registrar</h1>

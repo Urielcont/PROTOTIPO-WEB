@@ -8,12 +8,11 @@ exports.registrar= async (req,res)=>{
         const { nombres, apellidoPaterno, apellidoMaterno, telefono, correo, password} = req.body;
         try {
         const userFound = await User.findOne({correo});
-        if (userFound){
-            return res.status(400).json(["la cuenta ya esta en uso"]);
-        }
+        if (userFound) return res.status(400).json(["la cuenta ya esta en uso"])
+
         const passwordHash= await bcrypt.hash(password,10);
             // Crear el usuario 
-        const usuario = new User({
+        const user = new User({
             nombres,
             apellidoPaterno,
             apellidoMaterno,  
@@ -21,8 +20,8 @@ exports.registrar= async (req,res)=>{
             correo,
             password:passwordHash,
         });
-        await usuario.save();
-        const token = await CreateAccessToken({id:usuario._id});
+        await user.save();
+        const token = await CreateAccessToken({id:user._id});
         res.cookie('token',token);
         res.json({
           message:"usuario creado correctamente",
@@ -45,7 +44,7 @@ exports.login = async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, userFound.password);
 
     if (!passwordMatch) {
-      return res.status(400).json({ message: 'Credenciales incorrectas' });
+      return res.status(400).json({ message: 'Contraseña incorrecta' });
     }
 
     const token = await CreateAccessToken({ id: userFound._id });
