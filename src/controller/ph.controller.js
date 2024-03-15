@@ -19,7 +19,15 @@ exports.subirPH= async (req,res)=>{
 }
 
 
-exports.MostrarPH= async(req,res)=>{
-    const encontrarPh= await PH.find()
-    res.json(encontrarPh)
-}
+exports.MostrarUltimoPH = async (req, res) => {
+    try {
+        const ultimoPh = await PH.findOne().sort({ $natural: -1 }).select('nivel_ph').limit(1); // Busca el último documento y selecciona solo el campo 'nivel_ph'
+        if (!ultimoPh) {
+            return res.status(404).json({ message: "No se encontraron datos de pH" });
+        }
+        res.json(ultimoPh.nivel_ph); // Devuelve solo el valor de 'nivel_ph' del último documento
+    } catch (error) {
+        console.error("Error al obtener el último valor de pH:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
+};
