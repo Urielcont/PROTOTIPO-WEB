@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
 import { useNavigate } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
+import Swal from 'sweetalert2';
 
 import logo from "../assets/images/logo_copy.png"
 
@@ -18,9 +19,25 @@ function Register() {
     if (isAuth) navigate('/login');
   }, [isAuth]);
 
-  const onSubmit = handleSubmit((values) => {
+  const onSubmit = handleSubmit(async (values) => {
     if (values.password === values.password_confirm) {
-      signup(values);
+      try {
+        await signup(values);
+        // Mostrar alerta de registro exitoso
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          text: 'Tu cuenta ha sido creada correctamente',
+        });
+      } catch (error) {
+        console.error('Error al registrar:', error);
+        // Manejar error al registrar
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ha ocurrido un error al registrar tu cuenta. Por favor, inténtalo de nuevo más tarde.',
+        });
+      }
     } else {
       setPasswordMatch(false); // Establece el estado de coincidencia de contraseña como falso si no coinciden
     }
