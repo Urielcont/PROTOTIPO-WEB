@@ -44,9 +44,13 @@ function Register() {
   });
 
   const checkFormCompletion = () => {
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellidos").value;
+    const telefono = document.getElementById("telefono").value;
     const correo = document.getElementById("correo").value;
     const password = document.getElementById("password").value;
-    setFormCompleted(correo !== "" && password !== "");
+    const password_confirm = document.getElementById("password_confirm").value;
+    setFormCompleted(password_confirm !== "" && telefono !== "" && apellido !== "" && nombre !== "" && correo !== "" && password !== "");
   };
 
   return (
@@ -81,7 +85,7 @@ function Register() {
               {errors.password && <p className="text-red-500">Contraseña es requerido</p>}
             </div>
             <div className="mb-4">
-              <input className="border-b-2 border-solid border-cyan-600 w-full" id="password_confirm" type="password" placeholder="Confirnar Contraseña" {...register('password_confirm', { required: true })} />
+              <input className="border-b-2 border-solid border-cyan-600 w-full" id="password_confirm" type="password" placeholder="Confirmar Contraseña" {...register('password_confirm', { required: true })} />
               {errors.password_confirm && <p className="text-red-500">Contraseña es requerido</p>}
               {!passwordMatch && <p className="text-red-500">Las contraseñas no coinciden</p>} {/* Mensaje de error si las contraseñas no coinciden */}
             </div>
