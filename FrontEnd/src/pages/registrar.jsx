@@ -73,7 +73,7 @@ function Register() {
               {errors.apellidos && <p className="text-red-500">Los apellidos son requeridos</p>}
             </div>
             <div className="mb-4">
-              <input maxLength={10} className="border-b-2 border-solid border-cyan-600 w-full" id="telefono" type="number" placeholder="telefono" {...register('telefono', { required: true })} />
+              <input maxLength={10} className="border-b-2 border-solid border-cyan-600 w-full" id="telefono" type="number" placeholder="telefono" {...register('telefono', { required: true })} onInput={(e) => {e.target.value = Math.max(0, parseInt(e.target.value.toString().slice(0, 10)));}}/>
               {errors.telefono && <p className="text-red-500">telefono es requerido</p>}
             </div>
             <div className="mb-4">
