@@ -1,11 +1,15 @@
 import SidePage from "./sidebar";
 import hasbu from "../assets/images/hasbu.jpeg";
 
+import { useAuth } from "../context/Auth.context";
 
 function PerfilPage() {
+
+    const {isAuth,user}=useAuth();
+    console.log(user);
     return (
         <div className="m-0">
-            <h1 className="mr-96 text-xl flex justify-center">Perfil</h1>
+            <h1 className="mr-96 flex justify-center text-4xl text-black text-">Perfil</h1>
             <hr className="my-2 text-black" />
             <div>
             <SidePage />
@@ -21,42 +25,35 @@ function PerfilPage() {
 
         <form className="mt-16 w-5/12 ml-60 border rounded py-10 px-10 text-gray-700 shadow ">
     <div className="mb-4">
-        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2" htmlFor="nombre">
+        {isAuth ? (
+            <>
+        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2" htmlFor="nombre"> Nombre(s): </label>
+        <label className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue">{user.nombres}</label>
+
+        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="apellido"> Apellidos: </label>
+        <label className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue">{user.apellidos}</label>
+
+        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="email"> Correo Electronico: </label>
+        <label className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue">{user.correo}</label>
+
+        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="telefono"> No. Telefono: </label>
+        <label className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue">{user.telefono}</label>
+            </>
+        ) : (
+            <>
+            <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2" htmlFor="nombre">
             Nombre(s):
         </label>
         <input
             className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue"
             id="nombre"
+            value="Usaurio no logeado"
             type="text"
         />
-
-        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="apellido">
-            Apellidos:
-        </label>
-        <input
-            className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue"
-            id="apellido"
-            type="text"
-        />
-        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="edad">
-            Edad:
-        </label>
-        <input
-            className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue"
-            id="edad"
-            type="number"
-        />
-        <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="email">
-            Correo Electronico:
-        </label>
-        <input
-            className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue"
-            id="email"
-            type="email"
-        />
-        
+            </>
+        )}        
     </div>
-    <div className="flex items-center justify-center">
+    {/* <div className="flex items-center justify-center">
         <button
             className="bg-customBlue2 hover:bg-customBlue mr-5 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
             type="button">
@@ -67,7 +64,7 @@ function PerfilPage() {
             type="button">
             Cancelar
         </button>
-    </div>
+    </div> */}
 </form>
 </div>
 

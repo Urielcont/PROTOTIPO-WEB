@@ -6,7 +6,7 @@ const { CreateAccessToken } = require("../libs/jwt");
 // Registrar un nuevo usuario
 exports.registrar= async (req,res)=>{
    
-        const { nombres, apellidoPaterno, apellidoMaterno, telefono, correo, password} = req.body;
+        const { nombres, apellidos, telefono, correo, password} = req.body;
         try {
         const userFound = await User.findOne({correo});
         if (userFound) return res.status(400).json(["la cuenta ya esta en uso"])
@@ -15,8 +15,7 @@ exports.registrar= async (req,res)=>{
             // Crear el usuario 
         const user = new User({
             nombres,
-            apellidoPaterno,
-            apellidoMaterno,  
+            apellidos,
             telefono,
             correo,
             password:passwordHash,
@@ -40,13 +39,13 @@ exports.login = async (req, res) => {
     // Encuentra la información del usuario por su correo
     const userFound = await User.findOne({ correo });
 
-    if (!userFound) return res.status(400).json({ message: "El usuario no se encontró" });
+    if (!userFound) return res.status(400).json({ message: "Credenciales invalidas" });
 
     // Compara las contraseñas
     const passwordMatch = await bcrypt.compare(password, userFound.password);
 
     if (!passwordMatch) {
-      return res.status(400).json({ message: 'Contraseña incorrecta' });
+      return res.status(400).json({ message: 'Credenciales invalidas' });
     }
 
     const token = await CreateAccessToken({ id: userFound._id });
@@ -54,8 +53,7 @@ exports.login = async (req, res) => {
     res.json({
       id:userFound._id,
       nombres:userFound.nombres,
-      apellidoPaterno:userFound.apellidoPaterno,
-      apellidoMaterno:userFound.apellidoMaterno,
+      apellidos:userFound.apellidos,
       telefono:userFound.telefono,
       correo:userFound.correo,
     });
@@ -74,13 +72,12 @@ exports.logout= async(req,res)=>{
 exports.perfil=async(req,res)=>{
   const userFound = await User.findById(req.user.id)
 
-  if(!userFound) return res.status(400).json({message:"Usuario no encontrado"});
+  if(!userFound) return res.status(400).json({message:"Credenciales invalidas"});
 
   return res.json({
     id:userFound._id,
     nombres:userFound.nombres,
-    apellidoPaterno:userFound.apellidoPaterno,
-    apellidoMaterno:userFound.apellidoMaterno,
+    apellidos:userFound.apellidos,
     telefono:userFound.telefono,
     correo:userFound.correo,
   })
@@ -100,8 +97,7 @@ exports.verifyToken=async(req,res)=>{
     return res.json({
       id:userFound._id,
       nombres:userFound.nombres,
-      apellidoPaterno:userFound.apellidoPaterno,
-      apellidoMaterno:userFound.apellidoMaterno,
+      apellidos:userFound.apellidos,
       telefono:userFound.telefono,
       correo:userFound.correo,
     })

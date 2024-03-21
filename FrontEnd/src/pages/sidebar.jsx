@@ -1,12 +1,12 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import Logo from "../assets/images/logo.png";
 import { useAuth } from '../context/Auth.context';
+import Swal from 'sweetalert2';
 
 function Sidepage() {
 
-  const {isAuth, logout}= useAuth();
+  const {logout}= useAuth();
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -15,6 +15,24 @@ function Sidepage() {
 
   const toggleSubmenu = () => {
     setSubmenuOpen(!submenuOpen);
+  };
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Seguro de salir?',
+      text: "Estás a punto de cerrar sesión",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Realizar logout si se confirma
+        logout();
+      }
+    });
   };
 
   return (
@@ -53,28 +71,9 @@ function Sidepage() {
           </div>
 
           <hr className="my-4 text-gray-600" />
-          <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer" onClick={toggleSubmenu}>
-            <i className="bi bi-chat-left-text-fill hover:text-blue-700"></i>
-            <div className="flex justify-between w-full items-center">
-              <span className="text-[17px] ml-4 text-black hover:text-blue-700">Mas</span>
-              <span className={`text-sm ${submenuOpen ? 'rotate-180' : ''}`}>
-                <i className="bi bi-chevron-down"></i>
-              </span>
-            </div>
-          </div>
-          <div className={`leading-7 text-left text-sm font-thin mt-2 w-4/5 mx-auto ${submenuOpen ? '' : 'hidden'}`}>
-            <h1 className="cursor-pointer p-2 ">Social</h1>
-            <h1 className="cursor-pointer p-2 ">Personal</h1>
-          </div>
-          <hr className="my-4 text-gray-600" />
-          
           <div className="p-2 mt-10 flex items-center rounded-md px-4 duration-300 cursor-pointer">
             <i className="bi bi-box-arrow-in-right hover:text-blue-700"></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700" to="/" onClick={()=>{
-              logout()}}>Logout</span>
-            {/* <link className="text-[17px] ml-4 text-black hover:text-blue-700" to="/" onClick={()=>{
-              logout()
-            }}>logout</link> */}
+            <span className="text-[17px] ml-4 text-black hover:text-blue-700" onClick={handleLogout}>Logout</span>
           </div>
         </div>
       </div>

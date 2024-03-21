@@ -4,17 +4,14 @@ exports.registerSchema= z.object({
     nombres:z.string({
         required_error:'EL nombre de usuario es requerido'
     }),
-    apellidoPaterno:z.string({
-        required_error:'EL apellido paterno es requerido'
-    }),
-    apellidoMaterno:z.string({
-        required_error:'EL apellido materno es requerido'
+    apellidos:z.string({
+        required_error:'Los apellidos son requeridos'
     }),
     telefono:z.string({
         required_error:'EL telefono es requerido'
     }),
     correo:z.string({
-        required_error:'EL correo es requerido'
+        required_error:'EL correo es requewwwwwrido'
     }).email({
         message:'Correo invalido'
     }),
