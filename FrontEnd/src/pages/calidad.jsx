@@ -1,3 +1,4 @@
+import { GraficaLineal } from "../components/graficachart";
 import SidePage from "./sidebar";
 
 function CalidadPage() {
@@ -33,6 +34,11 @@ function CalidadPage() {
                 <h1 className="ml-64 flex justify-center">Registro</h1>
             </div>
 
+            <div className="flex justify-center ml-24 mt-5 w-full h-full">
+            <div className="flex justify-center w-7/12 h-2/5">
+                <GraficaLineal></GraficaLineal>
+            </div>
+            </div>
 
         </div>
         
