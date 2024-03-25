@@ -15,6 +15,8 @@ export default {
       colors: {
         customBlue: '#6BEAEA',
         customBlue2: '#16C1C8',
+        customBlue3: '#4DBEC9',
+        linea:'#776D6D',
         // light mode
         tremor: {
           brand: {

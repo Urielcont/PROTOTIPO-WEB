@@ -16,14 +16,14 @@ function PerfilPage() {
             </div>
 
         <div className="mt-1 flex justify-center">
-                <div className="ml-60 mt-2 bg-customBlue h-36 w-4/12 m-6 rounded-full flex items-center justify-center">
-                    <img className="w-4/12 h-4/12 mt-28 text-center rounded-full" src={hasbu} alt="" />
+                <div className="ml-80 mt-2 bg-customBlue h-36 w-3/6 m-6 rounded-full flex items-center justify-center">
+                    <img className="w-3/12 h-full mt-28 text-center rounded-full" src={hasbu} alt="" />
                 </div>
         </div>
 
         <div className="flex justify-center mb-10">
 
-        <form className="mt-16 w-5/12 ml-60 border rounded py-10 px-10 text-gray-700 shadow ">
+        <form className="bg-slate-50 mt-16 w-5/12 ml-80 border rounded py-10 px-10 text-gray-700 shadow-xl shadow-zinc-400 hover:shadow-customBlue3">
     <div className="mb-4">
         {isAuth ? (
             <>
