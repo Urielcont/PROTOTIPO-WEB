@@ -17,6 +17,12 @@ export default {
         customBlue2: '#16C1C8',
         customBlue3: '#4DBEC9',
         linea:'#776D6D',
+        backgroundImage: {
+          'fondoimg1': "url('src/assets/images/inicio_img1.png')",
+          'fondoimg2': "url('src/assets/images/inicio_img2.png')",
+          'fondoimg3': "url('src/assets/images/inicio_img3.png')",
+          'fondoimg4': "url('src/assets/images/inicio_img4.png')",
+        },
         // light mode
         tremor: {
           brand: {

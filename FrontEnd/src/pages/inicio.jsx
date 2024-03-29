@@ -1,5 +1,9 @@
 import SidePage from "./sidebar";
 import { useState, useEffect } from "react";
+
+
+
+
 // import { verPh } from "../api/sensors.js";
 import axios from 'axios';
 
@@ -48,45 +52,45 @@ function InicioPage() {
 
     return (
         <div className="m-0">
-        <h1 className="mr-56 text-xl" >Resumen del Dia</h1>
-        <hr className="my-2 text-black" />
         <div>
             <SidePage />
         </div>
-
-        <div className="mt-1 flex justify-center ">
-
-            <div className="ml-60">
-                {/* Seccion del ph */
-                    <div className="ml-10 mt-10 bg-customBlue h-40 w-64 m-6 rounded-md">
-                        <i className="bi-droplet-half ml-28" style={{ fontSize: '2.5rem' }}></i>
-                        <div className="bg-customBlue2 h-8 w-20 rounded-md ml-24">{nivelPh}</div>
-                        <p className="text-zinc-950 mt-2 ml-10">Nivel del PH del Agua</p>
-                    </div>}
-                {/* Seccion del flujo del agua */
-                    <div className="ml-10 mt-16 bg-customBlue h-40 w-64 m-6 rounded-md">
-                        <i className="bi-water ml-28" style={{ fontSize: '2.5rem' }}></i>
-                        <div className="bg-customBlue2 h-8 w-20 rounded-md ml-24">{nivelFlujo}</div>
-                        <p className="text-zinc-950 mt-2 ml-20">Flujo del Agua</p>
-                    </div>}
-
+        
+        <div className="flex justify-center ml-72">
+            {/* Seccion del ph */
+            <div className="bg-[url('src/assets/images/inicio_img1.png')] w-[300px] h-[708px] justify-center flex flex-col items-center">
+                <h1 className="text-3xl font-semibold text-center mb-3">Nivel del agua</h1>
+                <div className="bg-white shadow-xl shadow-white hover:shadow-customBlue3 h-40 w-6/12 m-6 rounded-[50px] content-center flex flex-col items-center">
+                    <i className="bi-droplet-half" style={{ fontSize: '3.2rem' }}></i>
+                    <div className="bg-customBlue3 h-1/4 w-4/6 rounded-full mt-2 text-center text-xl">{nivelPh}</div>
+                </div>
+            </div>}
+            {/* Seccion de la turbidez */
+            <div className="bg-[url('src/assets/images/inicio_img2.png')] w-[300px] h-[708px] justify-center flex flex-col items-center">
+            <h1 className="text-3xl font-semibold text-center mb-3">Turbidez del agua</h1>
+            <div className="bg-white shadow-xl shadow-white hover:shadow-customBlue3 h-40 w-6/12 m-6 rounded-[50px] content-center flex flex-col items-center">
+                <i className="bi-tsunami" style={{ fontSize: '3.2rem' }}></i>
+                <div className="bg-customBlue3 h-1/4 w-4/6 rounded-full mt-2 text-center text-xl">{nivelTurbidez}</div>
             </div>
-            <div>
-                {/* Seccion de las ventas */
-                    <div className="ml-10 mt-10 bg-customBlue h-40 w-64 m-6 rounded-md">
-                        <i className="bi-cash-coin ml-28" style={{ fontSize: '2.5rem' }}></i>
-                        <div className="bg-customBlue2 h-8 w-20 rounded-md ml-24">7</div>
-                        <p className="text-zinc-950 mt-2 ml-20" >Total de Ventas</p>
-                    </div>}
-                {/* Seccion de la turbidez */
-                    <div className="ml-10 mt-16 bg-customBlue h-40 w-64 m-6 rounded-md">
-                        <i className="bi-tsunami ml-28" style={{ fontSize: '2.5rem' }}></i>
-                        <div className="bg-customBlue2 h-8 w-20 rounded-md ml-24">{nivelTurbidez}</div>
-                        <p className="text-zinc-950 mt-2 ml-16">Turbidez del Agua</p>
-                    </div>}
-            </div>
-        </div>
+            </div>}
+            {/* Seccion del flujo del agua */
+            <div className="bg-[url('src/assets/images/inicio_img3.png')] w-[300px] h-[708px] justify-center flex flex-col items-center">
+                <h1 className="text-3xl font-semibold text-center mb-3">Flujo del agua</h1>
+                <div className="bg-white shadow-xl shadow-white hover:shadow-customBlue3 h-40 w-6/12 m-6 rounded-[50px] content-center flex flex-col items-center">
+                    <i className="bi-water" style={{ fontSize: '3.2rem' }}></i>
+                    <div className="bg-customBlue3 h-1/4 w-4/6 rounded-full mt-2 text-center text-xl">{nivelFlujo}</div>
+                </div>
+            </div>}
+            {/* Seccion de las ventas */
+            <div className="bg-[url('src/assets/images/inicio_img4.png')] w-[300px] h-[708px] justify-center flex flex-col items-center">
+                <h1 className="text-3xl font-semibold text-center mb-3">Total de ventas</h1>
+                <div className="bg-white shadow-xl shadow-white hover:shadow-customBlue3 h-40 w-6/12 m-6 rounded-[50px] content-center flex flex-col items-center">
+                    <i className="bi-cash-coin" style={{ fontSize: '3.2rem' }}></i>
+                    <div className="bg-customBlue3 h-1/4 w-4/6 rounded-full mt-2 text-center text-xl">$1,202</div>
+                </div>
+            </div>}
 
+         </div>
 
     </div>
 
