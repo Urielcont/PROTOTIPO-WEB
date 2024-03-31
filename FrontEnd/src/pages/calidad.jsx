@@ -35,7 +35,7 @@ function CalidadPage() {
             </div>
 
             <div className="flex justify-center ml-24 mt-5 w-full h-full">
-            <div className="flex justify-center w-7/12 h-2/5">
+            <div className="flex justify-center w-6/12 h-1/6">
                 <GraficaLineal></GraficaLineal>
             </div>
             </div>
