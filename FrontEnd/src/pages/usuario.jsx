@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SidePage from "../components/sidebar";
+import SidePage from "./sidebar";
 import { useAuth } from "../context/Auth.context";
 
 function UsuariosPage() {

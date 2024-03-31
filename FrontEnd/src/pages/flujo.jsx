@@ -1,4 +1,4 @@
-import SidePage from "../components/sidebar";
+import SidePage from "./sidebar";
 
 function FlujoPage() {
     return (

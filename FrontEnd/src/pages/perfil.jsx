@@ -1,5 +1,5 @@
 
-import Sidepage from "../components/sidebar";
+import Sidepage from "./sidebar";
 import { useAuth } from "../context/Auth.context";
 import { useEffect } from "react";
 
