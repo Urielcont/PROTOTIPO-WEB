@@ -1,4 +1,4 @@
-import SidePage from "./sidebar";
+import SidePage from "../components/sidebar";
 
 function VentasPage() {
     return (

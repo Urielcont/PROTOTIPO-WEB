@@ -9,6 +9,8 @@ import VentasPage from './pages/ventas';
 import PerfilPage from './pages/perfil';
 import { AuthProvider } from './context/Auth.context';
 import ProtectedRoute from "./protectedRoutes";
+import UsuariosPage from './pages/usuario';
+
 // import { AuthProvider } from './context/Auth.context';
 
 function App() {
@@ -27,9 +29,12 @@ function App() {
               <Route path='/Flujo' element={<FlujoPage/>}></Route>
               <Route path='/Ventas' element={<VentasPage/>}></Route>
               <Route path='/Perfil' element={<PerfilPage/>}></Route>
+              <Route path='/Usuarios' element={<UsuariosPage/>}></Route>
             </Route>
         </Routes>
+        
       </BrowserRouter>
+
 </AuthProvider>
     )
 }

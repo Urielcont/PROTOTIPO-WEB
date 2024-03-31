@@ -1,98 +1,111 @@
-import { createContext, useState,useContext, useEffect} from "react";
-import { RegistrarUsuario, login, verifyTokenRequest } from "../api/auth";
+import { createContext, useState, useContext, useEffect } from "react";
+import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest } from "../api/auth";
+
 import PropTypes from 'prop-types';
-import Cookies from  'js-cookie';
+import Cookies from 'js-cookie';
 
+export const AuthContext = createContext();
 
-
-export const AuthContext=createContext();
-
-export const useAuth=()=>{
-    const context=useContext(AuthContext)
-    if(!context){
-        throw new Error("useAuth deberia estar dentro del provider")
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth deberia estar dentro del provider");
     }
     return context;
-}
-export const AuthProvider=({ children })=>{
+};
 
-    const [user,setUser]=useState(null)
-    const [isAuth,setIsAuth]=useState(false);
-    const [errors, setErrors]=useState([]);
-    const [loading, setLoading]=useState(true);
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState([]);
+    const [isAuth, setIsAuth] = useState(false);
+    const [errors, setErrors] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+
+    const getUser = async (user) => {
+        try {
+            const res = await getUserRequest(user);
+            setUser(res.data)
+            console.log(res)
+            return (res)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const signup = async (user) => {
         try {
-            const res= await RegistrarUsuario(user);
+            const res = await RegistrarUsuario(user);
             setUser(res.data);
             setIsAuth(true);
         } catch (error) {
             console.log(error.response);
-            setErrors(error.response.data)
+            setErrors(error.response.data);
         }
     };
+
     const signin = async (user) => {
-        try{
-            const res= await login(user);
-            console.log(res.data);
+        try {
+            const res = await login(user);
             setUser(res.data);
             setIsAuth(true);
-            setUser(res.data);
-        }catch(error){
-            if(Array.isArray(error.response.data)){
-             return   setErrors(error.response.data)
+        } catch (error) {
+            if (Array.isArray(error.response.data)) {
+                setErrors(error.response.data);
+            } else {
+                setErrors([error.response.data.message]);
             }
-            setErrors([error.response.data.message])
-        }};
+        }
+    };
 
-    const logout=()=>{
-        Cookies.remove("token")
-        setIsAuth(false)
-        setUser(null)
-    }
-        useEffect(()=>{
-            if(errors.length > 0){
-                const timer= setTimeout(()=>{
-                    setErrors([])
+    const logout = () => {
+        Cookies.remove("token");
+        setIsAuth(false);
+        setUser(null);
+    };
 
-                },5000)
-                return ()=>clearTimeout(timer)
+    useEffect(() => {
+        if (errors.length > 0) {
+            const timer = setTimeout(() => {
+                setErrors([]);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [errors]);
+
+    useEffect(() => {
+        async function checkLogin() {
+            const cookies = Cookies.get();
+            if (!cookies.token) {
+                setIsAuth(false);
+                setLoading(false);
+                return setUser(null);
             }
-        },[errors]);
-
-        useEffect(()=>{
-            async function checkLogin(){
-                const cookies = Cookies.get();
-                if(!cookies.token){
+            try {
+                const res = await verifyTokenRequest(cookies.token);
+                if (!res.data) {
                     setIsAuth(false);
-                    setLoading(false)
-                    return setUser(null);
+                    setLoading(false);
+                    return;
                 }
-                try {
-                    const res = await verifyTokenRequest(cookies.token)
-                    if(!res.data){
-                        setIsAuth(false)
-                        setLoading(false)
-                        return;
-                    }
 
-                    setIsAuth(true)
-                    setUser(res.data)
-                    setLoading(false)
-                } catch (error) {
-                    setIsAuth(false)
-                    setUser(null)
-                    setLoading(false)
-                }
+                setIsAuth(true);
+                setUser(res.data);
+                setLoading(false);
+            } catch (error) {
+                setIsAuth(false);
+                setUser(null);
+                setLoading(false);
             }
-            checkLogin()
-        },[])
+        }
+        checkLogin();
+    }, []);
 
-
-    return(
+    return (
         <AuthContext.Provider value={{
             signup,
             signin,
             logout,
+            getUser,
             user,
             isAuth,
             loading,
@@ -100,11 +113,9 @@ export const AuthProvider=({ children })=>{
         }}>
             {children}
         </AuthContext.Provider>
-    )
-}
-
+    );
+};
 
 AuthProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
-

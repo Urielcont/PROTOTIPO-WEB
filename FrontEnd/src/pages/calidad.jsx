@@ -1,5 +1,5 @@
 import { GraficaLineal } from "../components/graficachart";
-import SidePage from "./sidebar";
+import SidePage from "../components/sidebar";
 
 function CalidadPage() {
     return (

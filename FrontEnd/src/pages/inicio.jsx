@@ -1,4 +1,4 @@
-import SidePage from "./sidebar";
+import SidePage from "../components/sidebar";
 import { useState, useEffect } from "react";
 // import { verPh } from "../api/sensors.js";
 import axios from 'axios';
