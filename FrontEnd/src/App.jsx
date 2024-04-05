@@ -7,11 +7,9 @@ import CalidadPage from './pages/calidad';
 import FlujoPage from './pages/flujo';
 import VentasPage from './pages/ventas';
 import PerfilPage from './pages/perfil';
+import UsuariosPage from './pages/usuario';
 import { AuthProvider } from './context/Auth.context';
 import ProtectedRoute from "./protectedRoutes";
-import UsuariosPage from './pages/usuario';
-
-// import { AuthProvider } from './context/Auth.context';
 
 function App() {
   return (
@@ -29,7 +27,7 @@ function App() {
               <Route path='/Flujo' element={<FlujoPage/>}></Route>
               <Route path='/Ventas' element={<VentasPage/>}></Route>
               <Route path='/Perfil' element={<PerfilPage/>}></Route>
-              <Route path='/Usuarios' element={<UsuariosPage/>}></Route>
+              <Route path='/user' element={<UsuariosPage/>}></Route>
             </Route>
         </Routes>
         

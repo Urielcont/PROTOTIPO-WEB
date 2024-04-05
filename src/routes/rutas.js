@@ -3,7 +3,7 @@ const logout = require("../controller/controller.js");
 const userFound = require("../controller/controller.js");
 const usuario = require("../controller/controller.js");
 const perfil = require("../controller/controller.js");
-
+const userController = require("../controller/controller.js");
 const ph = require("../controller/ph.controller.js");
 const turbidez = require("../controller/turbidez.controller.js");
 const flujo= require("../controller/flujo.controller.js")
@@ -21,9 +21,9 @@ router.post('/ph',ph.subirPH);
 router.post('/turbidez',turbidez.subirTurbidez);
 
 router.get('/verify', verifyToken);
-
+router.get('/usuarios', userController.getAllUsers);
 router.get('/perfil', authRequired, perfil.perfil);
-
+router.get('/usuario', authRequired, usuario.usuario);
 router.get('/ph',ph.MostrarUltimoPH);
 router.get('/flujo',flujo.MostrarUltimoFlujo);
 

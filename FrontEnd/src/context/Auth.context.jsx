@@ -21,14 +21,13 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
 
-    const getUser = async (user) => {
+    const getUser = async () => {
         try {
-            const res = await getUserRequest(user);
-            setUser(res.data)
-            console.log(res)
-            return (res)
+            const res = await getUserRequest();
+            return res.data; // Devuelve los usuarios
         } catch (error) {
             console.error(error);
+            return []; // En caso de error, devuelve un array vacío
         }
     };
 

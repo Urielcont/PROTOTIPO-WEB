@@ -82,7 +82,28 @@ exports.perfil=async(req,res)=>{
     correo:userFound.correo,
   })
 }
+exports.usuario = async (req, res) => {
+  try {
+    const users = await User.find({ user : req.user.id });
+    res.json(users);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
 
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No se encontraron usuarios." });
+    }
+
+    res.json(users);
+  } catch (error) {
+    console.error("Error al obtener usuarios:", error);
+    res.status(500).json({ message: "Error al obtener usuarios." });
+  }
+};
 exports.verifyToken=async(req,res)=>{
   const {token} =req.cookies;
 
