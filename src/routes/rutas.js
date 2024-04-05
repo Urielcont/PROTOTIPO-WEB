@@ -24,8 +24,13 @@ router.get('/verify', verifyToken);
 router.get('/usuarios', userController.getAllUsers);
 router.get('/perfil', authRequired, perfil.perfil);
 router.get('/usuario', authRequired, usuario.usuario);
+
+// PH
+// router.get('/MostrarPh/:filtro',ph.MostrarPh)
 router.get('/ph',ph.MostrarUltimoPH);
+// FLUJO
 router.get('/flujo',flujo.MostrarUltimoFlujo);
+router.get('/MostrarFlujo',flujo.MostrarFlujo)
 
 router.get('/turbidez',turbidez.MostrarUltimaTurbidez);
 

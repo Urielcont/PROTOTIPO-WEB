@@ -14,3 +14,17 @@ exports.MostrarUltimoFlujo = async (req, res) => {
         res.status(500).json({ message: "Error del servidor" });
     }
 };
+
+
+exports.MostrarFlujo = async (req, res) => {
+    try {
+        const mostrarFlujo = await Flujo.find();
+        if (mostrarFlujo.length === 0) {
+            return res.status(404).json({ message: "No se encontraron datos de pH" });
+        }
+        res.json(mostrarFlujo); // Devuelve los últimos registros de pH
+    } catch (error) {
+        console.error("Error al obtener los últimos valores de pH:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
+};
