@@ -29,19 +29,32 @@ function FlujoPage() {
                 </div>
             </div>
 
-            <div className="flex justify-center mb-10">
-                <div className="mt-14 w-5/12 ml-60 border rounded-2xl py-10 px-1 shadow ">
+            <div className="flex justify-center ml-36 mt-12">
+                <div className="w-8/12">
                     <h1 className="text-center text-xl mb-3">Historial de Flujo</h1>
-                    <hr className="w-full" />
-                    {ultimos10Registros.map((item, index) => (
-                        <div key={index} className="mt-4 flex justify-between mb-3">
-                            <h2 className="ml-6">{item.fecha}</h2>
-                            <h2>{item.nivelPh}</h2>
-                            <h2 className="mr-6">{item.estado}</h2>
-                        </div>
-                    ))}
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr>
+                                    <th className="border border-gray-300 px-4 py-2">Fecha</th>
+                                    <th className="border border-gray-300 px-4 py-2">Cantidad de Salida (ml)</th>
+                                    <th className="border border-gray-300 px-4 py-2">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {ultimos10Registros.map((item, index) => (
+                                    <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
+                                        <td className="border border-gray-300 px-4 py-2">{item.fecha}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{item.mlSalidos}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{item.estado}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 }
