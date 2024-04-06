@@ -1,8 +1,12 @@
 import { GraficaPh } from "../components/graficaph";
 import { GraficaTur } from "../components/graficaturbidez";
 import SidePage from "./sidebar";
-
+import { AuthContext } from "../context/Auth.context";
+import { useContext } from "react";
 function CalidadPage() {
+        // Obtener loos valores del contexto de ultimo dato en la base de datos
+
+    const { nivelPh, nivelTurbidez } = useContext(AuthContext);
     return (
         <div className="m-0 ">
             <h1 className="text-xl flex justify-center mr-96">Registro de calidad del agua</h1>
@@ -22,7 +26,7 @@ function CalidadPage() {
                     </div>
                     <hr  className="bg-linea"/>
                     <div className="ml-8 mt-3 bg-customBlue3 rounded-full border-none text-white w-2/6 h-2/6">
-                        <h1 className="text-2xl m-3"> 1.90</h1>
+                        <h1 className="text-2xl m-3"> {nivelPh}</h1>
                     </div>
                 </div>
 
@@ -59,7 +63,7 @@ function CalidadPage() {
                     </div>
                     <hr  className="bg-linea"/>
                     <div className="ml-8 mt-3 bg-customBlue3 rounded-full border-none text-white w-2/6 h-2/6">
-                        <h1 className="text-2xl m-3"> 5 gotas</h1>
+                        <h1 className="text-2xl m-3"> {nivelTurbidez}</h1>
                     </div>
                 </div>
 

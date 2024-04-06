@@ -31,3 +31,17 @@ exports.MostrarUltimoPH = async (req, res) => {
         res.status(500).json({ message: "Error del servidor" });
     }
 };
+
+exports.MostrarPh = async (req, res) => {
+    try {
+       
+        const mostrarPh = await PH.find(); 
+        if (mostrarPh.length === 0) {
+            return res.status(404).json({ message: "No se encontraron datos de pH" });
+        }
+        res.json(mostrarPh); 
+    } catch (error) {
+        console.error("Error al obtener los últimos valores de pH:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
+};

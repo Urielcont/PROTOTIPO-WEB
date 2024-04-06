@@ -6,7 +6,7 @@ import axios from 'axios';
 import { deleteUserRequest } from "../api/auth";
 
 function UsuariosPage() {
-    const { getUser } = useAuth();
+    const { getUser,user } = useAuth();
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -64,16 +64,16 @@ function UsuariosPage() {
         });
     };
 
-    // Verificamos si el usuario actual no es "root@gmail.com" y mostramos una alerta si es necesario
+
     useEffect(() => {
-        if (users.length === 0) {
+        if (user.correo !== "root@gmail.com") {
             Swal.fire({
                 title: 'Error',
                 text: 'No tiene permiso para acceder a esta página',
                 icon: 'error',
                 confirmButtonText: 'OK'
             }).then(() => {
-                window.location.href = '/inicio'; // Redirigimos al usuario al inicio
+                window.location.href = '/inicio';
             });
         }
     }, [users]);
