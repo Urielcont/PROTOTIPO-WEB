@@ -64,12 +64,24 @@ function UsuariosPage() {
         });
     };
 
+    // Verificamos si el usuario actual no es "root@gmail.com" y mostramos una alerta si es necesario
+    useEffect(() => {
+        if (users.length === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No tiene permiso para acceder a esta página',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = '/inicio'; // Redirigimos al usuario al inicio
+            });
+        }
+    }, [users]);
+
     return (
         <div className="m-0">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="ml-96 text-4xl text-black">Usuarios</h1>
-               
-                <a className="flex bi bi-trash items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600" href="/basurero"></a>
                 <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600">
                     Eliminar
                 </button>
