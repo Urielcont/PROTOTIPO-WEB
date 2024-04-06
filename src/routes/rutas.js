@@ -30,7 +30,6 @@ router.get('/flujo',flujo.MostrarUltimoFlujo);
 
 router.get('/turbidez',turbidez.MostrarUltimaTurbidez);
 
-
 router.put('/bajaUsuario/:iduser', userFound.bajalogicaUser);
 router.get("/usuarios/eliminados", usuarioController.getDeletedUsers);
 
