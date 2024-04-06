@@ -124,18 +124,31 @@ exports.verifyToken=async(req,res)=>{
     })
   })
 }
-
-
-exports.bajalogicaUser=async(req,res)=>{
+exports.bajalogicaUser = async (req, res) => {
   try {
-    const usuario = await User.findByIdAndUpdate(req.params.idUser, {
-      estatus: false,
-      fechaEliminacion: new Date() 
-  }, { new: true });
+      const { iduser } = req.params;
+      const usuario = await User.findByIdAndUpdate(iduser, {
+          estatus: false,
+          fechaEliminacion: new Date()
+      }, { new: true });
 
-    res.status(200).json({ message: "Baja lógica de Usuario",usuario });
-} catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al realizar la baja lógica del usuario " });
-}
-}
+      if (!usuario) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      res.status(200).json({ message: "Baja lógica de Usuario", usuario });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error al realizar la baja lógica del usuario " });
+  }
+};
+
+exports.getDeletedUsers = async (req, res) => {
+  try {
+      const deletedUsers = await User.find({ estatus: false });
+      res.status(200).json(deletedUsers);
+  } catch (error) {
+      console.error("Error al obtener los usuarios eliminados:", error);
+      res.status(500).json({ message: "Error al obtener los usuarios eliminados" });
+  }
+};

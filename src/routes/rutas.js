@@ -6,7 +6,8 @@ const perfil = require("../controller/controller.js");
 const userController = require("../controller/controller.js");
 const ph = require("../controller/ph.controller.js");
 const turbidez = require("../controller/turbidez.controller.js");
-const flujo= require("../controller/flujo.controller.js")
+const flujo= require("../controller/flujo.controller.js");
+const usuarioController = require("../controller/controller.js");
 const router =express.Router();
 const { authRequired } = require('../middleware/validarToken.js');
 const { validarSchema } = require('../middleware/validate.middleware.js');
@@ -30,5 +31,7 @@ router.get('/flujo',flujo.MostrarUltimoFlujo);
 router.get('/turbidez',turbidez.MostrarUltimaTurbidez);
 
 
-router.put('/bajaUsuario/:idUser',userFound.bajalogicaUser)
+router.put('/bajaUsuario/:iduser', userFound.bajalogicaUser);
+router.get("/usuarios/eliminados", usuarioController.getDeletedUsers);
+
 module.exports = router;
