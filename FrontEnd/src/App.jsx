@@ -1,4 +1,3 @@
-//importar las paginas
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Login from './pages/login';
 import Register from './pages/registrar';
