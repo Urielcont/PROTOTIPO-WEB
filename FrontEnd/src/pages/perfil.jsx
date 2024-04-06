@@ -12,7 +12,7 @@ function PerfilPage() {
             const nombreCompleto = user.nombres;
             const primerNombre = nombreCompleto.split(" ")[0];
             const primeraLetra = primerNombre.charAt(0);
-            document.getElementById("userInitial").textContent = primeraLetra;
+            
         }
     }, [user.correo, user.nombres]);
 
@@ -26,11 +26,7 @@ function PerfilPage() {
         <div className="mt-1 flex justify-center">
                 <div className="ml-80 mt-2 bg-customBlue3 h-36 w-3/6 m-6 rounded-full flex items-center justify-center shadow">
                     <img className="w-3/12 h-full mt-28 text-center rounded-full" src={hasbu} alt="" />
-
-                </div>
-          
-
-           
+                </div> 
         </div>
 
         <div className="flex justify-center mb-10">

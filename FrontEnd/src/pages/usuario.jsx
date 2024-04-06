@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react";
 import SidePage from "./sidebar";
 import { useAuth } from "../context/Auth.context";
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import { deleteUserRequest } from "../api/auth";
 
 function UsuariosPage() {
-    const { getUser, deleteUser } = useAuth();
+    const { getUser } = useAuth();
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
 
     useEffect(() => {
         const fetchUsers = async () => {
             const usersData = await getUser();
-            setUsers(usersData);
+            setUsers(usersData.filter(user => user.correo !== "root@gmail.com" && user.estatus !== false));
         };
         fetchUsers();
     }, []);
 
-
-    const handleDelete = () => {
+    const handleDelete = async () => {
         Swal.fire({
             title: '¿Estás seguro?',
             text: "Se eliminarán los usuarios seleccionados",
@@ -30,7 +31,9 @@ function UsuariosPage() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await Promise.all(selectedUsers.map(userId => deleteUser(userId)));
+                    await Promise.all(selectedUsers.map(async (iduser) => {
+                        await deleteUserRequest(iduser);
+                    }));
                     const updatedUsers = users.filter(user => !selectedUsers.includes(user._id));
                     setUsers(updatedUsers);
                     setSelectedUsers([]);
@@ -51,12 +54,12 @@ function UsuariosPage() {
         });
     };
 
-    const handleCheckboxChange = (userId) => {
+    const handleCheckboxChange = (iduser) => {
         setSelectedUsers(prevSelected => {
-            if (prevSelected.includes(userId)) {
-                return prevSelected.filter(id => id !== userId);
+            if (prevSelected.includes(iduser)) {
+                return prevSelected.filter(id => id !== iduser);
             } else {
-                return [...prevSelected, userId];
+                return [...prevSelected, iduser];
             }
         });
     };
@@ -65,6 +68,8 @@ function UsuariosPage() {
         <div className="m-0">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="ml-96 text-4xl text-black">Usuarios</h1>
+               
+                <a className="flex bi bi-trash items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600" href="/basurero"></a>
                 <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600">
                     Eliminar
                 </button>

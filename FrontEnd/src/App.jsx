@@ -8,6 +8,7 @@ import FlujoPage from './pages/flujo';
 import VentasPage from './pages/ventas';
 import PerfilPage from './pages/perfil';
 import UsuariosPage from './pages/usuario';
+import UsuariosEliminadosPage from './pages/basurero';
 import { AuthProvider } from './context/Auth.context';
 import ProtectedRoute from "./protectedRoutes";
 
@@ -28,6 +29,8 @@ function App() {
               <Route path='/Ventas' element={<VentasPage/>}></Route>
               <Route path='/Perfil' element={<PerfilPage/>}></Route>
               <Route path='/user' element={<UsuariosPage/>}></Route>
+              <Route path='/user/:iduser' element={<UsuariosPage/>}></Route>
+              <Route path='/basurero' element={<UsuariosEliminadosPage/>}></Route>
             </Route>
         </Routes>
         

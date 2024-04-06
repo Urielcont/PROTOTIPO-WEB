@@ -31,6 +31,8 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+
+
     const signup = async (user) => {
         try {
             const res = await RegistrarUsuario(user);
@@ -105,6 +107,7 @@ export const AuthProvider = ({ children }) => {
             signin,
             logout,
             getUser,
+
             user,
             isAuth,
             loading,
