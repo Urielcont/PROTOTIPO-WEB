@@ -57,6 +57,10 @@ function Sidepage() {
             <a href="/Calidad"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Calidad</span></a>
           </div>
           <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
+            <a href="/Ph"><i className="bi bi-moisture hover:text-blue-700"></i></a>
+            <a href="/Ph"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Ph</span></a>
+          </div>
+          <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
             <a href="/Flujo"><i className="bi bi-arrow-left-right hover:text-blue-700 "></i></a>
             <a href="/Flujo"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Flujo</span></a>
           </div>

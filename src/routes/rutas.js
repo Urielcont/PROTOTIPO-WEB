@@ -26,7 +26,7 @@ router.post("/usuario",validarSchema(registerSchema), authRequired, controller.a
 // PH
 // router.get('/MostrarPh/:filtro',ph.MostrarPh)
 router.get('/ph',ph.MostrarUltimoPH);
-router.get('/MostrarPh',ph.MostrarUltimoPH);
+router.get('/MostrarPh',ph.MostrarPh);
 
 // FLUJO
 router.get('/flujo',flujo.MostrarUltimoFlujo);

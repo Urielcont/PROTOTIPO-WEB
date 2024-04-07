@@ -1,34 +1,19 @@
 /* eslint-disable react/prop-types */
 import { AreaChart } from '@tremor/react';
+import { SensoresContext } from "../context/sensores.context";
+import { useContext } from "react";
 
-const chartdata = [
-  {
-    date: 'Jan 23',
-    PH: 1.1,
-  },
-  {
-    date: 'Feb 23',
-    PH: 1.6,
-  },
-  {
-    date: 'Mar 23',
-    PH: 2.0,
-  },
-  {
-    date: 'Apr 23',
-    PH: 1.3,
-  },
-  {
-    date: 'May 23',
-    PH: 1.2,
-  },
-  {
-    date: 'Jun 23',
-    PH: 1.9,
-  },
-];
+
 
 export function GraficaPh() {
+  const { historialPh } = useContext(SensoresContext);
+const ultimos10Registros = historialPh.slice(0, 10).reverse();
+
+const chartdata = ultimos10Registros.map(item => ({
+  date: new Date(item.fecha).toLocaleDateString(), // Formatear la fecha como solo fecha
+  PH: item.nivel_ph
+}));
+
   const customTooltip = (props) => {
     const { payload, active } = props;
     if (!active || !payload) return null;

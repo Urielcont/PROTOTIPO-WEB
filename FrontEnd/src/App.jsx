@@ -7,6 +7,7 @@ import CalidadPage from './pages/calidad';
 import FlujoPage from './pages/flujo';
 import VentasPage from './pages/ventas';
 import PerfilPage from './pages/perfil';
+import Ph from './pages/ph'
 import UsuariosPage from './pages/usuario';
 import Editar from './pages/editar';
 import UsuariosEliminadosPage from './pages/basurero';
@@ -30,6 +31,7 @@ function App() {
 
               <Route path='/Inicio' element={<InicioPage/>}></Route>
               <Route path='/Calidad' element={<CalidadPage/>}></Route>
+              <Route path='/Ph' element={<Ph></Ph>}></Route>
               <Route path='/Flujo' element={<FlujoPage/>}></Route>
               <Route path='/Ventas' element={<VentasPage/>}></Route>
               <Route path='/Perfil' element={<PerfilPage/>}></Route>

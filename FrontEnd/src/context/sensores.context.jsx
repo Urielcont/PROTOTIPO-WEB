@@ -82,11 +82,12 @@ export const SensorProvider = ({ children }) => {
   const MostrarPh = async () => {
     try {
       const response = await axios.get(`${api}/MostrarPh`);
-      setHistorialPh(response.data.map(item => ({ ...item, fecha: new Date(item.fecha).toLocaleString() }))); // Formatear la fecha
+      setHistorialPh(response.data);
     } catch (error) {
       console.error("Error Mostrar Ph:", error);
     }
   };
+  
 
 
   return (
