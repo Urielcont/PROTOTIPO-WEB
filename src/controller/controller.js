@@ -96,6 +96,22 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+exports.agregarUser = async (req,res) => {
+  const { nombres, apellidos, telefono, correo, password} = req.body;
+
+  const passwordHash= await bcrypt.hash(password,10);
+
+  const newUser = new User({
+    nombres,
+    apellidos, 
+    telefono,
+    correo,
+    password: passwordHash
+  });
+
+  const savedUser = await newUser.save();
+  res.json(savedUser)
+};
 
 exports.perfil=async(req,res)=>{
   const userFound = await User.findById(req.user.id)

@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest, deleteUsersRequest } from "../api/auth";
+import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest, deleteUsersRequest, createUserRequest } from "../api/auth";
 
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
@@ -43,6 +43,16 @@ export const AuthProvider = ({ children }) => {
             return []; 
         }
     };
+
+    //Agrega Usuarios
+    const agregarUsers = async (user) =>{
+        try {
+            const res = await createUserRequest(user)
+            console.log(res)
+        } catch (error) {
+            
+        }
+    }
 
     //Hace el registro
     const signup = async (user) => {
@@ -161,7 +171,6 @@ try {
             }
         };
 
-
         obtenerDatos();
 
         const interval = setInterval(obtenerDatos, 1000);
@@ -184,6 +193,7 @@ try {
             getUsers,
             updateUser,
             deleteUser,
+            agregarUsers,
             user,
             isAuth,
             loading,

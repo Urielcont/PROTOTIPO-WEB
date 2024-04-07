@@ -7,6 +7,7 @@ export const verifyTokenRequest = () => axios.get(`/verify`);
 export const getUserRequest = () => axios.get(`/usuarios`);
 export const getUsersRequest = (id) => axios.get(`/usuario/${id}`);
 
+export const createUserRequest = (user) => axios.post(`/usuario`, user)
 export const searchUserRequest = (id) => axios.get(`/users/${id}`);
 export const updateUserRequest = (id, user) => axios.put(`/usuario/${id}`, user);
 export const deleteUserRequest = async (iduser) => {
