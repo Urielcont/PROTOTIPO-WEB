@@ -106,7 +106,8 @@ exports.agregarUser = async (req,res) => {
     apellidos, 
     telefono,
     correo,
-    password: passwordHash
+    password: passwordHash,
+    estatus:true
   });
 
   const savedUser = await newUser.save();

@@ -11,7 +11,7 @@ exports.registerSchema= z.object({
         required_error:'EL telefono es requerido'
     }),
     correo:z.string({
-        required_error:'EL correo es requewwwwwrido'
+        required_error:'EL correo es requerido'
     }).email({
         message:'Correo invalido'
     }),
