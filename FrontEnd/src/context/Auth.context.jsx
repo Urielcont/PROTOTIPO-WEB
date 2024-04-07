@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest } from "../api/auth";
+import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest } from "../api/auth";
 import axios from 'axios';
 
 import PropTypes from 'prop-types';
@@ -24,19 +24,28 @@ export const AuthProvider = ({ children }) => {
     const [nivelFlujo, setnivelFlujo] = useState(null);//Ultimo valor de Flujo en la base de datos
     const [nivelTurbidez, setnivelTurbidez] = useState(null);//Ultimo valor de Turbidez en la base de datos
 
+    //Toma solo un usuario
+    const getUsers = async (id) => {
+        try {
+          const res = await getUsersRequest(id);
+          return res.data;
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
+    //Toma todos los usuarios
     const getUser = async () => {
         try {
             const res = await getUserRequest();
-            return res.data; // Devuelve los usuarios
+            return res.data; 
         } catch (error) {
             console.error(error);
-            return []; // En caso de error, devuelve un array vacío
+            return []; 
         }
     };
 
-
-
+    //Hace el registro
     const signup = async (user) => {
         try {
             const res = await RegistrarUsuario(user);
@@ -48,6 +57,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    //Hace el login
     const signin = async (user) => {
         try {
             const res = await login(user);
@@ -62,12 +72,22 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    //Hace el logout
     const logout = () => {
         Cookies.remove("token");
         setIsAuth(false);
         setUser(null);
     };
 
+    //actualiza los datos
+    const updateUser = async (id, user) =>{
+        try {
+            await updateUserRequest(id, user); // Pasamos user como argumento
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
     useEffect(() => {
         if (errors.length > 0) {
             const timer = setTimeout(() => {
@@ -151,7 +171,8 @@ export const AuthProvider = ({ children }) => {
             signin,
             logout,
             getUser,
-
+            getUsers,
+            updateUser,
             user,
             isAuth,
             loading,
@@ -160,7 +181,6 @@ export const AuthProvider = ({ children }) => {
             nivelPh,
             nivelFlujo,
             nivelTurbidez
-
         }}>
             {children}
         </AuthContext.Provider>

@@ -3,31 +3,41 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
 import { useEffect } from "react";
 import 'tailwindcss/tailwind.css';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import logo from "../assets/images/logo_copy.png"
+import logo from "../assets/images/logo_copy.png";
 
 function Login() {
-  const { signin, errors: loginErrors, isAuth} = useAuth();
+  const { signin, errors: loginErrors } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [formCompleted, setFormCompleted] = useState(false);
 
-  useEffect(()=>{
-      if (isAuth) {
-        navigate("/Inicio");
-        // Mostrar alerta de éxito
-        Swal.fire({
-          icon: 'success',
-          title: '¡Inicio de sesión exitoso!',
-          text: 'Bienvenido de vuelta',
-        });
-      }
-  }, [isAuth, navigate]);
+  useEffect(() => {
+    // Si hay errores de inicio de sesión, mostrar la alerta de error
+    if (loginErrors.length > 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Usuario inexistente',
+        text: loginErrors.join(', '), // Mostrar todos los errores
+      });
+    }
+  }, [loginErrors]);
 
-  const onSubmit= handleSubmit((data) => {
-      signin(data);
+  const onSubmit = handleSubmit(async (data) => {
+    // Realizar el inicio de sesión
+    await signin(data);
+    // Después del inicio de sesión, verificar si está autenticado y redirigir si es necesario
+  
+      navigate("/Inicio");
+      // Mostrar alerta de éxito
+      Swal.fire({
+        icon: 'success',
+        title: '¡Inicio de sesión exitoso!',
+        text: 'Bienvenido de vuelta',
+      });
+    
   });
 
   const checkFormCompletion = () => {
@@ -45,7 +55,7 @@ function Login() {
               {error}
             </div>
           ))}
-          <form onSubmit={onSubmit} onChange={checkFormCompletion}  className="p-8 flex flex-col">
+          <form onSubmit={onSubmit} onChange={checkFormCompletion} className="p-8 flex flex-col">
             <h1 className="text-2xl text-black-900 mb-4">Iniciar sesión</h1>
 
             <div className="mb-4">

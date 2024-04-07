@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');   
 const {User} = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const jwt =require('jsonwebtoken')
@@ -38,24 +39,30 @@ exports.login = async (req, res) => {
   try {
     // Encuentra la información del usuario por su correo
     const userFound = await User.findOne({ correo });
+    console.log(userFound.estatus)
+    if (!userFound) return res.status(400).json({ message: "Credenciales inválidas" });
 
-    if (!userFound) return res.status(400).json({ message: "Credenciales invalidas" });
+    // Verifica si el estado del usuario es true
+    if (userFound.estatus === false) {
+      return res.status(400).json({ message: 'El usuario no tiene acceso' });
+    }
 
     // Compara las contraseñas
     const passwordMatch = await bcrypt.compare(password, userFound.password);
 
     if (!passwordMatch) {
-      return res.status(400).json({ message: 'Credenciales invalidas' });
+      return res.status(400).json({ message: 'Credenciales inválidas' });
     }
 
     const token = await CreateAccessToken({ id: userFound._id });
     res.cookie('token', token);
     res.json({
-      id:userFound._id,
-      nombres:userFound.nombres,
-      apellidos:userFound.apellidos,
-      telefono:userFound.telefono,
-      correo:userFound.correo,
+      id: userFound._id,
+      nombres: userFound.nombres,
+      apellidos: userFound.apellidos,
+      telefono: userFound.telefono,
+      correo: userFound.correo,
+      estatus: userFound.estatus,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,6 +75,27 @@ exports.logout= async(req,res)=>{
   });
   return res.sendStatus(200);
 }
+
+
+exports.getUsers = async (req, res) => {
+  try {
+      const { id } = req.params;
+      if (!mongoose.isValidObjectId(id)) {
+          return res.status(400).json({ message: "ID de usuario no válida" });
+      }
+      const user = await User.findById(id);
+      if (!user) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+      console.log(user) 
+      return res.json(user);
+
+  } catch (error) {
+      console.error("Error al obtener usuario:", error);
+      return res.status(500).json({ message: "Error al obtener usuario" });
+  }
+};
+
 
 exports.perfil=async(req,res)=>{
   const userFound = await User.findById(req.user.id)
@@ -150,5 +178,19 @@ exports.getDeletedUsers = async (req, res) => {
   } catch (error) {
       console.error("Error al obtener los usuarios eliminados:", error);
       res.status(500).json({ message: "Error al obtener los usuarios eliminados" });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    const { nombres, apellidos, telefono, correo } = req.body;
+    const userUpdated = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { nombres, apellidos, telefono, correo },
+      { new: true }
+    );
+    return res.json(userUpdated);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
