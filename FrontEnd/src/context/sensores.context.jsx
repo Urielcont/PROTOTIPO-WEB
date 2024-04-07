@@ -12,11 +12,14 @@ export const SensoresContext = createContext();
 export const SensorProvider = ({ children }) => {
 
   const [historialFlujo, setHistorialFlujo] = useState([]);
-
+  const [historialPh, setHistorialPh] = useState([]);
   const [nivelPh, setnivelPh] = useState([]); //Ultimo valor de ph en la base de datos
   const [nivelFlujo, setnivelFlujo] = useState([]);//Ultimo valor de Flujo en la base de datos
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
 
+
+  // variable usada para conectar a la api
+  const api = "http://localhost:4000/api"
   // -------OBTENER ULTIMO DATO DE LA BASE DE DATOS DE SENSORES----
   //   try {
   //     useEffect(() => {
@@ -26,7 +29,7 @@ export const SensorProvider = ({ children }) => {
 
 
 
-  //         const interval = setInterval(obtenerDatos, 1000);
+  //         const interval = setInterval(obtenerUltimoDato, 1000);
 
 
   //         return () => clearInterval(interval);
@@ -35,15 +38,16 @@ export const SensorProvider = ({ children }) => {
   //     console.log("Error al llamar los datos", error)
   // }
   useEffect(() => {
-    fetchData();
-    obtenerDatos();
+    MostrarFlujo();
+    obtenerUltimoDato();
+    MostrarPh();
   }, []);
-  const obtenerDatos = async () => {
+  const obtenerUltimoDato = async () => {
     try {
       // Hacer solicitudes HTTP para obtener los datos más recientes
-      const responsePh = await axios.get("http://localhost:4000/api/ph");
-      const responseFlujo = await axios.get("http://localhost:4000/api/flujo");
-      const responseTurbidez = await axios.get("http://localhost:4000/api/turbidez");
+      const responsePh = await axios.get(`${api}/ph`);
+      const responseFlujo = await axios.get(`${api}/flujo`);
+      const responseTurbidez = await axios.get(`${api}/turbidez`);
 
       // Formatear la fecha de los datos
       const datosPh = {
@@ -66,21 +70,29 @@ export const SensorProvider = ({ children }) => {
     }
   };
 
-
-  const fetchData = async () => {
+  // Obtener todos los datos de la base de datos
+  const MostrarFlujo = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/mostrarFlujo");
+      const response = await axios.get(`${api}/mostrarFlujo`);
       setHistorialFlujo(response.data.map(item => ({ ...item, fecha: new Date(item.fecha).toLocaleString() }))); // Formatear la fecha
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error Mostrar Flujo:", error);
     }
   };
-
+  const MostrarPh = async () => {
+    try {
+      const response = await axios.get(`${api}/MostrarPh`);
+      setHistorialPh(response.data.map(item => ({ ...item, fecha: new Date(item.fecha).toLocaleString() }))); // Formatear la fecha
+    } catch (error) {
+      console.error("Error Mostrar Ph:", error);
+    }
+  };
 
 
   return (
     <SensoresContext.Provider value={{
       historialFlujo,
+      historialPh,
       nivelPh,
       nivelFlujo,
       nivelTurbidez,
