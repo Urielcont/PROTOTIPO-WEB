@@ -17,5 +17,5 @@ export const deleteUserRequest = async (iduser) => {
         throw new Error("Error al eliminar usuario");
     }
 };
-
 export const getDeletedUsersRequest = () => axios.get("/usuarios/eliminados");
+export const deleteUsersRequest = (id)=>axios.delete(`/usuario/${id}`);

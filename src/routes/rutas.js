@@ -21,6 +21,7 @@ router.get('/usuarios', authRequired, controller.getAllUsers);
 router.get('/perfil', authRequired, controller.perfil);
 router.get('/usuario', authRequired, controller.usuario);
 router.get('/usuario/:id', authRequired, controller.getUsers);
+router.delete('/usuario/:id', controller.deleteUser);
 // PH
 // router.get('/MostrarPh/:filtro',ph.MostrarPh)
 router.get('/ph',ph.MostrarUltimoPH);

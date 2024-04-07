@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest } from "../api/auth";
+import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest, deleteUsersRequest } from "../api/auth";
 
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
@@ -84,6 +84,16 @@ export const AuthProvider = ({ children }) => {
             await updateUserRequest(id, user); // Pasamos user como argumento
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    //baja definitiva de usuarios
+    const deleteUser = async (id) =>{
+        try {
+            const res = await deleteUsersRequest(id)
+            console.log(res.data)
+        } catch (error) {
+            
         }
     }
     
@@ -173,6 +183,7 @@ try {
             getUser,
             getUsers,
             updateUser,
+            deleteUser,
             user,
             isAuth,
             loading,
