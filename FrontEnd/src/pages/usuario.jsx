@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import SidePage from "./sidebar";
 import { useAuth } from "../context/Auth.context";
 import Swal from 'sweetalert2';
@@ -11,6 +12,7 @@ function UsuariosPage() {
     const [selectedUsers, setSelectedUsers] = useState([]);
 
     useEffect(() => {
+        
         const fetchUsers = async () => {
             const usersData = await getUser();
             setUsers(usersData.filter(user => user.correo !== "root@gmail.com" && user.estatus !== false));
@@ -82,9 +84,12 @@ function UsuariosPage() {
         <div className="m-0">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="ml-96 text-4xl text-black">Usuarios</h1>
-                <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600">
-                    Eliminar
-                </button>
+                <div className="flex items-center">
+                    <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600 mr-2">
+                        Eliminar
+                    </button>
+                    <a className="bi bi-trash items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600" href="/basurero"></a>
+                </div>
             </div>
             <hr className="my-2 text-black" />
             <div>
@@ -98,12 +103,17 @@ function UsuariosPage() {
                             <p className="text-gray-600">{user.correo}</p>
                             <p className="text-gray-600">{user.telefono}</p>
                         </div>
-                        <input 
-                            type="checkbox" 
-                            className="rounded-xl" 
-                            onChange={() => handleCheckboxChange(user._id)}
-                            checked={selectedUsers.includes(user._id)}
-                        />
+                        <div className="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                className="rounded-xl mr-2" 
+                                onChange={() => handleCheckboxChange(user._id)}
+                                checked={selectedUsers.includes(user._id)}
+                            />
+                            <Link to={`/editar/${user._id}`}>
+                                <span className="bi bi-pencil text-blue-500"></span>
+                            </Link>
+                        </div>
                     </div>
                 ))}
             </div>

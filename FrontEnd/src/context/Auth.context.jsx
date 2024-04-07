@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest } from "../api/auth";
+import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest, deleteUsersRequest, createUserRequest } from "../api/auth";
 
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
@@ -19,20 +19,42 @@ export const AuthProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false);
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(true);
-   
+    const [nivelPh, setnivelPh] = useState(null); //Ultimo valor de ph en la base de datos
+    const [nivelFlujo, setnivelFlujo] = useState(null);//Ultimo valor de Flujo en la base de datos
+    const [nivelTurbidez, setnivelTurbidez] = useState(null);//Ultimo valor de Turbidez en la base de datos
 
+    //Toma solo un usuario
+    const getUsers = async (id) => {
+        try {
+          const res = await getUsersRequest(id);
+          return res.data;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+    //Toma todos los usuarios
     const getUser = async () => {
         try {
             const res = await getUserRequest();
-            return res.data; // Devuelve los usuarios
+            return res.data; 
         } catch (error) {
             console.error(error);
-            return []; // En caso de error, devuelve un array vacío
+            return []; 
         }
     };
 
+    //Agrega Usuarios
+    const agregarUsers = async (user) =>{
+        try {
+            const res = await createUserRequest(user)
+            console.log(res)
+        } catch (error) {
+            
+        }
+    }
 
-
+    //Hace el registro
     const signup = async (user) => {
         try {
             const res = await RegistrarUsuario(user);
@@ -44,6 +66,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    //Hace el login
     const signin = async (user) => {
         try {
             const res = await login(user);
@@ -58,12 +81,32 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    //Hace el logout
     const logout = () => {
         Cookies.remove("token");
         setIsAuth(false);
         setUser(null);
     };
 
+    //actualiza los datos
+    const updateUser = async (id, user) =>{
+        try {
+            await updateUserRequest(id, user); // Pasamos user como argumento
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    //baja definitiva de usuarios
+    const deleteUser = async (id) =>{
+        try {
+            const res = await deleteUsersRequest(id)
+            console.log(res.data)
+        } catch (error) {
+            
+        }
+    }
+    
     useEffect(() => {
         if (errors.length > 0) {
             const timer = setTimeout(() => {
@@ -101,6 +144,43 @@ export const AuthProvider = ({ children }) => {
         checkLogin();
     }, []);
 
+// -------OBTENER ULTIMO DATO DE LA BASE DE DATOS DE SENSORES----
+
+
+try {
+    useEffect(() => {
+        // Función para obtener los últimos datos de cada sección
+        const obtenerDatos = async () => {
+            try {
+                // Hacer solicitudes HTTP para obtener los datos más recientes
+                const datosPh = await axios.get("http://localhost:4000/api/ph");
+                const datosFlujo = await axios.get("http://localhost:4000/api/flujo");
+                const datoTurbidez = await axios.get("http://localhost:4000/api/turbidez");
+
+                // Establecer los estados con los datos más recientes
+                // console.log("Ultimo PH:", datosPh.data);
+                setnivelPh(datosPh.data);
+                // Datos del flujo
+                // console.log("Ultimo dato de Flujo: ", datosFlujo.data)
+                setnivelFlujo(datosFlujo.data)
+                // Datos del Trubidez
+                // console.log("Ultimo dato de Turbidez: ", datoTurbidez.data)
+                setnivelTurbidez(datoTurbidez.data)
+            } catch (error) {
+                console.error("Error al obtener los datos:", error);
+            }
+        };
+
+        obtenerDatos();
+
+        const interval = setInterval(obtenerDatos, 1000);
+
+
+        return () => clearInterval(interval);
+    }, []);
+} catch (error) {
+    console.log("Error al llamar los datos", error)
+}
 
 
 
@@ -110,14 +190,19 @@ export const AuthProvider = ({ children }) => {
             signin,
             logout,
             getUser,
-
+            getUsers,
+            updateUser,
+            deleteUser,
+            agregarUsers,
             user,
             isAuth,
             loading,
             errors,
             // Datos de la base de datos
-           
-
+            nivelPh,
+            nivelFlujo,
+            nivelTurbidez
+            
         }}>
             {children}
         </AuthContext.Provider>

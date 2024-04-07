@@ -76,13 +76,17 @@ function Sidepage() {
  
             <a href="/user"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Usuarios</span></a>
             </div>
+
+            <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
+            <a href="/agregar"><i className="bi bi-person-plus hover:text-blue-700"></i></a>
+            <a href="/agregar"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Agregar Usuario</span></a>
+            </div>
           </>
           ):(
           <>
           </>
           )
           }
-
 
           <hr className="my-4 text-gray-600" />
           <div className="p-2 mt-10 flex items-center rounded-md px-4 duration-300 cursor-pointer">
