@@ -19,9 +19,6 @@ export const AuthProvider = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false);
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [nivelPh, setnivelPh] = useState(null); //Ultimo valor de ph en la base de datos
-    const [nivelFlujo, setnivelFlujo] = useState(null);//Ultimo valor de Flujo en la base de datos
-    const [nivelTurbidez, setnivelTurbidez] = useState(null);//Ultimo valor de Turbidez en la base de datos
 
     //Toma solo un usuario
     const getUsers = async (id) => {
@@ -50,7 +47,7 @@ export const AuthProvider = ({ children }) => {
             const res = await createUserRequest(user)
             console.log(res)
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
@@ -103,7 +100,8 @@ export const AuthProvider = ({ children }) => {
             const res = await deleteUsersRequest(id)
             console.log(res.data)
         } catch (error) {
-            
+            console.log(error)
+
         }
     }
     
@@ -144,45 +142,6 @@ export const AuthProvider = ({ children }) => {
         checkLogin();
     }, []);
 
-// -------OBTENER ULTIMO DATO DE LA BASE DE DATOS DE SENSORES----
-
-
-try {
-    useEffect(() => {
-        // Función para obtener los últimos datos de cada sección
-        const obtenerDatos = async () => {
-            try {
-                // Hacer solicitudes HTTP para obtener los datos más recientes
-                const datosPh = await axios.get("http://localhost:4000/api/ph");
-                const datosFlujo = await axios.get("http://localhost:4000/api/flujo");
-                const datoTurbidez = await axios.get("http://localhost:4000/api/turbidez");
-
-                // Establecer los estados con los datos más recientes
-                // console.log("Ultimo PH:", datosPh.data);
-                setnivelPh(datosPh.data);
-                // Datos del flujo
-                // console.log("Ultimo dato de Flujo: ", datosFlujo.data)
-                setnivelFlujo(datosFlujo.data)
-                // Datos del Trubidez
-                // console.log("Ultimo dato de Turbidez: ", datoTurbidez.data)
-                setnivelTurbidez(datoTurbidez.data)
-            } catch (error) {
-                console.error("Error al obtener los datos:", error);
-            }
-        };
-
-        obtenerDatos();
-
-        const interval = setInterval(obtenerDatos, 1000);
-
-
-        return () => clearInterval(interval);
-    }, []);
-} catch (error) {
-    console.log("Error al llamar los datos", error)
-}
-
-
 
     return (
         <AuthContext.Provider value={{
@@ -198,11 +157,7 @@ try {
             isAuth,
             loading,
             errors,
-            // Datos de la base de datos
-            nivelPh,
-            nivelFlujo,
-            nivelTurbidez
-            
+           
         }}>
             {children}
         </AuthContext.Provider>
