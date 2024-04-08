@@ -1,14 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SidePage from "./sidebar";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
 import Swal from 'sweetalert2';
 
 function AgregarPage() {
+    const { users, agregarUsers, errors: registerErrors } = useAuth();
+    const [existingEmails, setExistingEmails] = useState([]);
+    const [existingPhones, setExistingPhones] = useState([]);
+    const [existingPasswords, setExistingPasswords] = useState([]);
+    const [rolValue, setRolValue] = useState(false); // Valor por defecto para empleado
+
+    useEffect(() => {
+        if (users) {
+            const emails = users.map(user => user.correo);
+            setExistingEmails(emails);
+            const phones = users.map(user => user.telefono);
+            setExistingPhones(phones);
+            const passwords = users.map(user => user.password);
+            setExistingPasswords(passwords);
+        }
+    }, [users]);
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { agregarUsers, errors: registerErrors } = useAuth();
 
     const onSubmit = handleSubmit((data) => {
+        // Verificar si el correo ya existe
+        if (existingEmails.includes(data.correo)) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Este correo electrónico ya está registrado',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Verificar si el teléfono ya existe
+        if (existingPhones.includes(data.telefono)) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Este número de teléfono ya está registrado',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Verificar si la contraseña ya existe
+        if (existingPasswords.includes(data.password)) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Esta contraseña ya está registrada',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Si no hay duplicados, agregar el usuario
         Swal.fire({
             title: '¿Estás seguro?',
             text: "Una vez agregado, no podrás deshacer esta acción",
@@ -19,6 +72,8 @@ function AgregarPage() {
             confirmButtonText: 'Sí, agregarlo!'
         }).then((result) => {
             if (result.isConfirmed) {
+                // Convertir el valor de rol a booleano
+                data.rol = rolValue;
                 agregarUsers(data);
                 reset(); // Reinicia el formulario después de agregar el usuario
                 Swal.fire({
@@ -69,6 +124,13 @@ function AgregarPage() {
                             <label className="text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="password"> Contraseña: </label>
                             <input className={`${errors.password ? 'border-red-500' : 'border-cyan-600'} shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue`} {...register('password', { required: true })} id="password" type="password" />
                             {errors.password && <p className="text-red-500">Contraseña es requerido</p>}
+
+                            <label className="text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2 mt-2" htmlFor="rol"> Rol: </label>
+                            <select className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue" value={rolValue ? "administrador" : "empleado"} onChange={(e) => setRolValue(e.target.value === "administrador")} id="rol">
+                                <option value="administrador">Administrador</option>
+                                <option value="empleado">Empleado</option>
+                            </select>
+                            {errors.rol && <p className="text-red-500">Rol es requerido</p>}
                         </div>
                         <button type="submit" id="botonAgregar" className="mt-4 rounded-full self-center text-white p-2 w-36 bg-blue-500 hover:bg-blue-600">
                             Agregar

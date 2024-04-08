@@ -96,23 +96,25 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.agregarUser = async (req,res) => {
-  const { nombres, apellidos, telefono, correo, password} = req.body;
+exports.agregarUser = async (req, res) => {
+  const { nombres, apellidos, telefono, correo, password, rol } = req.body;
 
-  const passwordHash= await bcrypt.hash(password,10);
+  const passwordHash = await bcrypt.hash(password, 10);
 
   const newUser = new User({
-    nombres,
-    apellidos, 
-    telefono,
-    correo,
-    password: passwordHash,
-    estatus:true
+      nombres,
+      apellidos,
+      telefono,
+      correo,
+      password: passwordHash,
+      estatus: true,
+      rol, // Ya es un valor booleano, no es necesario convertirlo
   });
 
   const savedUser = await newUser.save();
-  res.json(savedUser)
+  res.json(savedUser);
 };
+
 
 exports.perfil=async(req,res)=>{
   const userFound = await User.findById(req.user.id)

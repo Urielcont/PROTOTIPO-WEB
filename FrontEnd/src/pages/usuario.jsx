@@ -15,12 +15,23 @@ function UsuariosPage() {
         
         const fetchUsers = async () => {
             const usersData = await getUser();
-            setUsers(usersData.filter(user => user.correo !== "root@gmail.com" && user.estatus !== false));
+            setUsers(usersData.filter(user => user.rol !== admin && user.estatus !== false));
         };
         fetchUsers();
     }, []);
 
     const handleDelete = async () => {
+        // Verificar si hay usuarios seleccionados
+        if (selectedUsers.length === 0) {
+            Swal.fire({
+                title: 'Atención',
+                text: 'Debes seleccionar al menos un usuario para eliminar.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+        
         Swal.fire({
             title: '¿Estás seguro?',
             text: "Se eliminarán los usuarios seleccionados",

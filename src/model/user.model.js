@@ -24,6 +24,10 @@ const userSchema= new mongoose.Schema({
         type:Boolean,
         required:true
     },
+    rol:{
+        type:Boolean,
+        required:true
+    },
     fechaEliminacion:{
         type:Date,
         default:null
