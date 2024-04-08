@@ -1,11 +1,11 @@
 import SidePage from "./sidebar";
 import { GraficaVentas } from "../components/graficaventas";
 import { SensoresContext } from "../context/sensores.context";
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 
 
 function VentasPage() {
-    const {ultimaVenta,historialVentas } = useContext(SensoresContext);
+    const { ultimaVenta, historialVentas } = useContext(SensoresContext);
     const [filtroFecha, setFiltroFecha] = useState('hoy');
 
     // Función para filtrar los datos según el filtro de fecha seleccionado
@@ -122,7 +122,8 @@ function VentasPage() {
                         <table className="w-full border-collapse border text-center border-gray-300">
                             <thead>
                                 <tr>
-                                    <th className="border border-gray-300 px-4 py-2">Fecha</th>
+                                    <th className="border border-gray-300 px-4 py-2">Fecha Apertura</th>
+                                    <th className="border border-gray-300 px-4 py-2">Fecha Terminada</th>
                                     <th className="border border-gray-300 px-4 py-2">Garrafones Vendidos</th>
                                     <th className="border border-gray-300 px-4 py-2">Total</th>
                                 </tr>
@@ -130,7 +131,8 @@ function VentasPage() {
                             <tbody>
                                 {ultimos10Registros.map((item, index) => (
                                     <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaCerrar).toLocaleDateString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaApertura).toLocaleString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaCerrar).toLocaleString()}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.totalGalones}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.total}</td>
                                     </tr>

@@ -11,8 +11,8 @@ exports.agregarVenta = async (req, res) => {
             nombre,
             totalGalones,
             total,
-            fechaCerrar: new Date(),
-            fechaApertura: new Date(),
+            // fechaCerrar: new Date(),
+            // fechaApertura: new Date(),
         });
 
         await venta.save();

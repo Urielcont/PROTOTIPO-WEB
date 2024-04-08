@@ -86,7 +86,7 @@ function PhPage() {
             {/*Implementacion de la grafica del ph del mes */}
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-4/6 h-1/6 ml-80 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
-                    <h1 className="font-semibold text-2xl text-center">Registro ph este mes</h1>
+                    <h1 className="font-semibold text-2xl text-center">Registro de ultimo PH</h1>
                     <GraficaPh></GraficaPh>
                 </div>
             </div>
@@ -116,7 +116,7 @@ function PhPage() {
                             <tbody>
                                 {ultimos10Registros.map((item, index) => (
                                     <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fecha).toLocaleDateString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fecha).toLocaleString()}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.nivel_ph}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.estado}</td>
                                     </tr>
