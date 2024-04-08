@@ -54,9 +54,9 @@ function VentasPage() {
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-full h-32 ml-80 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
                     <div className="flex justify-between ">
-                        <h1 className="font-semibold m-2 text-xl">Total de Venta Actual</h1>
-                        <div className="bg-customBlue3 w-16 h-7 m-2 text-center font-semibold text-white rounded-xl ">
-                            <h2>Hoy</h2>
+                        <h1 className="font-semibold m-2 text-xl">Total de Ultima Venta</h1>
+                        <div className="bg-customBlue3 w-24 h-7 m-2 text-center font-semibold text-white rounded-xl ">
+                            <h2 className="text-center p-1">{new Date(ultimaVenta.fechaCerrar).toLocaleDateString()}</h2>
                         </div>
                     </div>
                     <hr className="bg-linea" />
@@ -75,7 +75,7 @@ function VentasPage() {
             {/*Implementacion de la grafica de ventas del mes */}
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-full h-1/6 ml-80 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
-                    <h1 className="font-semibold text-2xl text-center">Ventas del mes</h1>
+                    <h1 className="font-semibold text-2xl text-center">Ventas</h1>
                     <GraficaVentas></GraficaVentas>
                 </div>
             </div>
