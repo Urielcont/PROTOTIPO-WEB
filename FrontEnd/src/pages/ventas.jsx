@@ -5,7 +5,7 @@ import { useContext,useState } from "react";
 
 
 function VentasPage() {
-    const { historialFlujo,ultimaVenta } = useContext(SensoresContext);
+    const {ultimaVenta,historialVentas } = useContext(SensoresContext);
     const [filtroFecha, setFiltroFecha] = useState('hoy');
 
     // Función para filtrar los datos según el filtro de fecha seleccionado
@@ -13,27 +13,27 @@ function VentasPage() {
         switch (filtroFecha) {
             case 'hoy':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     return fechaItem.getDate() === fechaHoy.getDate() && fechaItem.getMonth() === fechaHoy.getMonth() && fechaItem.getFullYear() === fechaHoy.getFullYear();
                 });
             case 'ultimos7dias':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     const fechaLimite = new Date(fechaHoy.getTime() - 7 * 24 * 60 * 60 * 1000);
                     return fechaItem >= fechaLimite;
                 });
             case 'ultimos30dias':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     const fechaLimite = new Date(fechaHoy.getTime() - 30 * 24 * 60 * 60 * 1000);
                     return fechaItem >= fechaLimite;
                 });
             case 'ultimos365dias':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     const fechaLimite = new Date(fechaHoy.getTime() - 365 * 24 * 60 * 60 * 1000);
                     return fechaItem >= fechaLimite;
@@ -42,7 +42,7 @@ function VentasPage() {
                 return historial;
         }
     };
-    const ultimos10Registros = filtrarDatos(historialFlujo).reverse();
+    const ultimos10Registros = filtrarDatos(historialVentas).reverse();
     return (
         <div className="m-0 ">
             <h1 className="text-xl flex justify-center">Ventas del dia</h1>
@@ -130,9 +130,9 @@ function VentasPage() {
                             <tbody>
                                 {ultimos10Registros.map((item, index) => (
                                     <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fecha).toLocaleDateString()}</td>
-                                        <td className="border border-gray-300 px-4 py-2">{item.mlSalidos}</td>
-                                        <td className="border border-gray-300 px-4 py-2">{item.estado}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaCerrar).toLocaleDateString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{item.totalGalones}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{item.total}</td>
                                     </tr>
                                 ))}
                             </tbody>

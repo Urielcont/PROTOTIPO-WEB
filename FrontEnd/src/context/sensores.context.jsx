@@ -13,6 +13,7 @@ export const SensorProvider = ({ children }) => {
 
   const [historialFlujo, setHistorialFlujo] = useState([]);
   const [historialPh, setHistorialPh] = useState([]);
+  const [historialVentas, sethistorialVentas]=useState([]);
   const [nivelPh, setnivelPh] = useState([]); //Ultimo valor de ph en la base de datos
   const [nivelFlujo, setnivelFlujo] = useState([]);//Ultimo valor de Flujo en la base de datos
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
@@ -41,6 +42,7 @@ export const SensorProvider = ({ children }) => {
     MostrarFlujo();
     obtenerUltimoDato();
     MostrarPh();
+    MostrarVentas();
   }, []);
   const obtenerUltimoDato = async () => {
     try {
@@ -88,6 +90,16 @@ export const SensorProvider = ({ children }) => {
       console.error("Error Mostrar Ph:", error);
     }
   };
+
+  const MostrarVentas = async () => {
+    try {
+      const response = await axios.get(`${api}/Ventas`);
+      sethistorialVentas(response.data);
+    } catch (error) {
+      console.error("Error Mostrar las Ventas:", error);
+    }
+  };
+  
   
 
 
@@ -99,6 +111,7 @@ export const SensorProvider = ({ children }) => {
       nivelFlujo,
       nivelTurbidez,
       ultimaVenta,
+      historialVentas,
 
     }}>
       {children}

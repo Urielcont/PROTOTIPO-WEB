@@ -36,3 +36,15 @@ exports.MostrarUltimaVenta = async (req, res) => {
     }
 };
 
+exports.MostrarVentas = async (req, res) => {
+    try {
+        const ventas = await Ventas.find(); // Busca el último documento y selecciona solo el campo 'nivel_ph'
+        if (!ventas) {
+            return res.status(404).json({ message: "No se encontraron datos de las Ventas" });
+        }
+        res.json(ventas); 
+    } catch (error) {
+        console.error("Error al obtener las Ventas:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
+};
