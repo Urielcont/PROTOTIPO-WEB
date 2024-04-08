@@ -74,7 +74,7 @@ export const SensorProvider = ({ children }) => {
   const MostrarFlujo = async () => {
     try {
       const response = await axios.get(`${api}/mostrarFlujo`);
-      setHistorialFlujo(response.data.map(item => ({ ...item, fecha: new Date(item.fecha).toLocaleString() }))); // Formatear la fecha
+      setHistorialFlujo(response.data);
     } catch (error) {
       console.error("Error Mostrar Flujo:", error);
     }
