@@ -16,7 +16,7 @@ export const SensorProvider = ({ children }) => {
   const [nivelPh, setnivelPh] = useState([]); //Ultimo valor de ph en la base de datos
   const [nivelFlujo, setnivelFlujo] = useState([]);//Ultimo valor de Flujo en la base de datos
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
-
+  const [ultimaVenta, setultimaVenta]=useState([]);
 
   // variable usada para conectar a la api
   const api = "http://localhost:4000/api"
@@ -48,7 +48,7 @@ export const SensorProvider = ({ children }) => {
       const responsePh = await axios.get(`${api}/ph`);
       const responseFlujo = await axios.get(`${api}/flujo`);
       const responseTurbidez = await axios.get(`${api}/turbidez`);
-
+      const responseVenta = await axios.get(`${api}/UltimaVenta`);
       // Formatear la fecha de los datos
       const datosPh = {
         ...responsePh.data,
@@ -65,6 +65,7 @@ export const SensorProvider = ({ children }) => {
       setnivelPh(datosPh);
       setnivelFlujo(datosFlujo);
       setnivelTurbidez(datosTurbidez);
+      setultimaVenta(responseVenta.data)
     } catch (error) {
       console.error("Error al obtener los datos:", error);
     }
@@ -97,6 +98,7 @@ export const SensorProvider = ({ children }) => {
       nivelPh,
       nivelFlujo,
       nivelTurbidez,
+      ultimaVenta,
 
     }}>
       {children}
