@@ -27,11 +27,9 @@ function Login() {
 
   const onSubmit = handleSubmit(async (data) => {
     // Realizar el inicio de sesión
-    const user = await signin(data);
-
-    // Verificar si el usuario fue encontrado y su rol no es false
-    if (user && user.rol !== false) {
-      // Después del inicio de sesión, redirigir si es necesario
+    await signin(data);
+    // Después del inicio de sesión, verificar si está autenticado y redirigir si es necesario
+  
       navigate("/Inicio");
       // Mostrar alerta de éxito
       Swal.fire({
@@ -39,14 +37,7 @@ function Login() {
         title: '¡Inicio de sesión exitoso!',
         text: 'Bienvenido de vuelta',
       });
-    } else {
-      // Mostrar alerta de usuario inválido si el rol es false
-      Swal.fire({
-        icon: 'error',
-        title: 'Usuario inválido',
-        text: 'No tiene permiso para iniciar sesión',
-      });
-    }
+    
   });
 
   const checkFormCompletion = () => {
@@ -88,12 +79,13 @@ function Login() {
               Entrar
             </button>
 
+            <p className="text-gray-700">No tienes una cuenta aún?<a href="/registrar" className="text-blue-500">Registrate</a></p>
           </form>
         </div>
         <div className="flex-1 flex justify-end">
           <div className='bg-indigo-500 w-3/4 h-screen p-8 text-white bg-cover flex justify-center flex-col' style={{backgroundImage: "url('https://i.pinimg.com/564x/da/54/23/da542336e9bb92257fe2b2aedf30060a.jpg')"}}>
             <div className='text-center'>
-              <h1 className="text-7xl text-gray-900 mb-4">Bienvenido</h1>
+              <h1 className="text-7xl text-gray-900 mb-4">Bienvenido</h1> 
               <img className="ml-56" src={logo} alt="logo" />
               <p className="mt-4 text-gray-800">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis veritatis fuga repudiandae nostrum exercitationem quo, fugit necessitatibus? Non vel reprehenderit architecto hic, explicabo dolorem autem minima aspernatur eum magnam id!</p>
             </div>

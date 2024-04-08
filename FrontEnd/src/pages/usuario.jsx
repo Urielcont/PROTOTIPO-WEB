@@ -15,7 +15,7 @@ function UsuariosPage() {
         
         const fetchUsers = async () => {
             const usersData = await getUser();
-            setUsers(usersData.filter(user => user.rol !== admin && user.estatus !== false));
+            setUsers(usersData.filter(user => user.rol !== true && user.estatus !== false));
         };
         fetchUsers();
     }, []);
@@ -79,7 +79,7 @@ function UsuariosPage() {
 
 
     useEffect(() => {
-        if (user.correo !== "root@gmail.com") {
+        if (user.rol !== true) {
             Swal.fire({
                 title: 'Error',
                 text: 'No tiene permiso para acceder a esta página',
@@ -99,6 +99,7 @@ function UsuariosPage() {
                     <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600 mr-2">
                         Eliminar
                     </button>
+                    <a className="bi bi-person-plus items-center bg-blue-500 text-white mt-3 mr-2 py-2 px-4 rounded-full hover:bg-blue-600" href="/agregar"></a>
                     <a className="bi bi-trash items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600" href="/basurero"></a>
                 </div>
             </div>

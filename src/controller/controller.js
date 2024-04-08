@@ -63,6 +63,7 @@ exports.login = async (req, res) => {
       telefono: userFound.telefono,
       correo: userFound.correo,
       estatus: userFound.estatus,
+      rol:userFound.rol,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -108,7 +109,7 @@ exports.agregarUser = async (req, res) => {
       correo,
       password: passwordHash,
       estatus: true,
-      rol, // Ya es un valor booleano, no es necesario convertirlo
+      rol,
   });
 
   const savedUser = await newUser.save();
@@ -127,6 +128,7 @@ exports.perfil=async(req,res)=>{
     apellidos:userFound.apellidos,
     telefono:userFound.telefono,
     correo:userFound.correo,
+    rol:userFound.rol,
   })
 }
 exports.usuario = async (req, res) => {
@@ -168,6 +170,7 @@ exports.verifyToken=async(req,res)=>{
       apellidos:userFound.apellidos,
       telefono:userFound.telefono,
       correo:userFound.correo,
+      rol:userFound.rol,
     })
   })
 }

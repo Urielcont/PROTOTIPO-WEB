@@ -20,6 +20,7 @@ function Editar() {
           setValue("apellidos", res.apellidos);
           setValue("telefono", res.telefono);
           setValue("correo", res.correo);
+          setValue("rol", res.rol);
         }
       }
       loadUser();
