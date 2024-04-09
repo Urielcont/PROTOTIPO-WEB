@@ -14,6 +14,8 @@ export const SensorProvider = ({ children }) => {
   const [historialFlujo, setHistorialFlujo] = useState([]);
   const [historialPh, setHistorialPh] = useState([]);
   const [historialVentas, sethistorialVentas]=useState([]);
+  const [historialCalidad, sethistorialCalidad]=useState([]);
+
   const [nivelPh, setnivelPh] = useState([]); //Ultimo valor de ph en la base de datos
   const [nivelFlujo, setnivelFlujo] = useState([]);//Ultimo valor de Flujo en la base de datos
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
@@ -37,6 +39,7 @@ export const SensorProvider = ({ children }) => {
       // Hacer solicitudes HTTP para obtener los datos más recientes
       const responsePh = await axios.get(`${api}/ph`);
       const responseFlujo = await axios.get(`${api}/flujo`);
+      const responseCalidad = await axios.get(`${api}/MostrarCalidad`);
       const responseTurbidez = await axios.get(`${api}/turbidez`);
       const responseVenta = await axios.get(`${api}/UltimaVenta`);
       const responsetotalVentas = await axios.get(`${api}/TotalVentas`);
@@ -59,6 +62,7 @@ export const SensorProvider = ({ children }) => {
       setnivelPh(datosPh);
       setnivelFlujo(datosFlujo);
       setnivelTurbidez(datosTurbidez);
+      sethistorialCalidad(responseCalidad.data)
       setultimaVenta(responseVenta.data)
       settotalVentas(responsetotalVentas.data.total_ventas)
       settotalSemanaVentas(responsetotalSemanaVentas.data.total_ventas_semana)
@@ -113,7 +117,8 @@ export const SensorProvider = ({ children }) => {
       historialVentas,
       totalVentas,
       totalMesVentas,
-      totalSemanaVentas
+      totalSemanaVentas,
+      historialCalidad
 
     }}>
       {children}

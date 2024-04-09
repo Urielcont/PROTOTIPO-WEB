@@ -33,6 +33,8 @@ router.get('/MostrarPh',ph.MostrarPh);
 router.get('/flujo',flujo.MostrarUltimoFlujo);
 router.get('/MostrarFlujo',flujo.MostrarFlujo)
 
+// Calidad | Turbidez
+router.get('/MostrarCalidad',turbidez.MostrarTurbidez)
 router.get('/turbidez',turbidez.MostrarUltimaTurbidez);
 router.put("/usuario/:id", controller.updateUser);
 router.put('/bajaUsuario/:iduser', controller.bajalogicaUser);

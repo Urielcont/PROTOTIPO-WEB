@@ -20,8 +20,17 @@ exports.subirTurbidez= async (req,res)=>{
 
 
 exports.MostrarTurbidez= async(req,res)=>{
-    const encontrarTurbidez= await Turbidez.find()
-    res.json(encontrarTurbidez)
+    try {
+       
+        const mostrarTurbidez = await Turbidez.find();
+        if (mostrarTurbidez.length === 0) {
+            return res.status(404).json({ message: "No se encontraron datos de Turbidez" });
+        }
+        res.json(mostrarTurbidez);
+    } catch (error) {
+        console.error("Error al obtener los últimos valores de Turbidez:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
 }
 
 

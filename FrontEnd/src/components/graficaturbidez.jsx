@@ -1,34 +1,18 @@
 /* eslint-disable react/prop-types */
 import { AreaChart } from '@tremor/react';
+import { useContext } from 'react';
+import { SensoresContext } from '../context/sensores.context';
 
-const chartdata = [
-  {
-    date: 'Jan 23',
-    Turbidez: 3.0,
-  },
-  {
-    date: 'Feb 23',
-    Turbidez: 2.3,
-  },
-  {
-    date: 'Mar 23',
-    Turbidez: 1.4,
-  },
-  {
-    date: 'Apr 23',
-    Turbidez: 1.92,
-  },
-  {
-    date: 'May 23',
-    Turbidez: 1.32,
-  },
-  {
-    date: 'Jun 23',
-    Turbidez: 1.43,
-  },
-];
+
 
 export function GraficaTur() {
+  const { historialCalidad } = useContext(SensoresContext);
+const ultimos10Registros = historialCalidad.slice(0, 10);
+
+const chartdata = ultimos10Registros.map(item => ({
+  date: new Date(item.fecha).toLocaleDateString(), 
+  Calidad: item.nivel_turbidez
+}));
   const customTooltip = (props) => {
     const { payload, active } = props;
     if (!active || !payload) return null;
@@ -42,7 +26,7 @@ export function GraficaTur() {
             <div className="space-y-1">
               <p className="text-tremor-content">{category.dataKey}</p>
               <p className="font-medium text-tremor-content-emphasis">
-                {category.value} gotas
+                {category.value} NTU
               </p>
             </div>
           </div>
@@ -57,7 +41,7 @@ export function GraficaTur() {
         className="mt-4 h-72"
         data={chartdata}
         index="date"
-        categories={['Turbidez']}
+        categories={['Calidad']}
         colors={['rose']}
         yAxisWidth={30}
         customTooltip={customTooltip}
