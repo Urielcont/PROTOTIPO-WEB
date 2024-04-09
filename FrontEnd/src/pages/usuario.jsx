@@ -3,16 +3,15 @@ import { Link } from "react-router-dom";
 import SidePage from "./sidebar";
 import { useAuth } from "../context/Auth.context";
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { deleteUserRequest } from "../api/auth";
 
 function UsuariosPage() {
-    const { getUser,user } = useAuth();
+    const { getUser, user } = useAuth();
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        
         const fetchUsers = async () => {
             const usersData = await getUser();
             setUsers(usersData.filter(user => user.rol !== true && user.estatus !== false));
@@ -21,7 +20,6 @@ function UsuariosPage() {
     }, []);
 
     const handleDelete = async () => {
-        // Verificar si hay usuarios seleccionados
         if (selectedUsers.length === 0) {
             Swal.fire({
                 title: 'Atención',
@@ -77,6 +75,12 @@ function UsuariosPage() {
         });
     };
 
+    const filteredUsers = users.filter((user) =>
+        user.nombres.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.apellidos.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.correo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.telefono.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     useEffect(() => {
         if (user.rol !== true) {
@@ -96,10 +100,20 @@ function UsuariosPage() {
             <div className="flex justify-between items-center mb-4">
                 <h1 className="ml-96 text-4xl text-black">Usuarios</h1>
                 <div className="flex items-center">
+                    
+                <input
+                type="text"
+                placeholder="Buscar..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className=" border-l-transparent border-blue-500 border-r-transparent border-t-transparent border-b-2 border-solid mt-3 mr-2"
+                style={{ width: '400px'}}
+            />
+
                     <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600 mr-2">
                         Eliminar
                     </button>
-                    <a className="bi bi-person-plus items-center bg-blue-500 text-white mt-3 mr-2 py-2 px-4 rounded-full hover:bg-blue-600" href="/agregar"></a>
+                    <Link to="/agregar" className="bi bi-person-plus items-center bg-blue-500 text-white mt-3 mr-2 py-2 px-4 rounded-full hover:bg-blue-600"></Link>
                     <a className="bi bi-trash items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600" href="/basurero"></a>
                 </div>
             </div>
@@ -108,7 +122,7 @@ function UsuariosPage() {
                 <SidePage/>
             </div>
             <div className="grid ml-80 md:grid-cols-2">
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                     <div key={user._id} className="bg-white rounded-lg shadow-md p-4 m-2 flex items-center justify-between">
                         <div>
                             <h1 className="text-xl font-semibold">{user.nombres} {user.apellidos}</h1>

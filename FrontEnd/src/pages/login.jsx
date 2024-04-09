@@ -15,23 +15,18 @@ function Login() {
   const [formCompleted, setFormCompleted] = useState(false);
 
   useEffect(() => {
-    // Si hay errores de inicio de sesión, mostrar la alerta de error
     if (loginErrors.length > 0) {
       Swal.fire({
         icon: 'error',
         title: 'Usuario inexistente',
-        text: loginErrors.join(', '), // Mostrar todos los errores
+        text: loginErrors.join(', '),
       });
     }
   }, [loginErrors]);
 
   const onSubmit = handleSubmit(async (data) => {
-    // Realizar el inicio de sesión
     await signin(data);
-    // Después del inicio de sesión, verificar si está autenticado y redirigir si es necesario
-  
       navigate("/Inicio");
-      // Mostrar alerta de éxito
       Swal.fire({
         icon: 'success',
         title: '¡Inicio de sesión exitoso!',
@@ -78,8 +73,6 @@ function Login() {
             >
               Entrar
             </button>
-
-            <p className="text-gray-700">No tienes una cuenta aún?<a href="/registrar" className="text-blue-500">Registrate</a></p>
           </form>
         </div>
         <div className="flex-1 flex justify-end">

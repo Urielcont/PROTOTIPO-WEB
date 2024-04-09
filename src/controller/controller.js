@@ -5,49 +5,49 @@ const jwt =require('jsonwebtoken')
 const { TOKEN_SECRET} =require("../config")
 const { CreateAccessToken } = require("../libs/jwt");
 // Registrar un nuevo usuario
-exports.registrar= async (req,res)=>{
-   
-        const { nombres, apellidos, telefono, correo, password} = req.body;
-        try {
-        const userFound = await User.findOne({correo});
-        if (userFound) return res.status(400).json(["la cuenta ya esta en uso"])
+exports.registrar = async (req, res) => {
+  const { nombres, apellidos, telefono, correo, password, rol } = req.body;
+  try {
+    // Verifica si el correo ya está en uso
+    const userFound = await User.findOne({ correo });
+    if (userFound) return res.status(400).json(["La cuenta ya está en uso"]);
 
-        const passwordHash= await bcrypt.hash(password,10);
-            // Crear el usuario 
-        const user = new User({
-            nombres,
-            apellidos,
-            telefono,
-            correo,
-            password:passwordHash,
-            estatus:true
-        });
-        await user.save();
-        const token = await CreateAccessToken({id:user._id});
-        res.cookie('token',token);
-        res.json({
-          message:"usuario creado correctamente",
-        })
-    } catch (error) {
-      res.status(500).json({message:error.message})      
-    }
-
-}
+    // Hash de la contraseña
+    const passwordHash = await bcrypt.hash(password, 10);
+    
+    // Crea el nuevo usuario
+    const newUser = new User({
+      nombres,
+      apellidos,
+      telefono,
+      correo,
+      password: passwordHash,
+      estatus: true,
+      rol,
+    });
+    
+    // Guarda el nuevo usuario en la base de datos
+    await newUser.save();
+    
+    // Responde con éxito
+    res.status(201).json({ message: "Usuario registrado exitosamente" });
+  } catch (error) {
+    // Maneja los errores
+    console.error(error.message);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
 
 exports.login = async (req, res) => {
   const { correo, password } = req.body;
   try {
-    // Encuentra la información del usuario por su correo
     const userFound = await User.findOne({ correo });
-    console.log(userFound.estatus)
     if (!userFound) return res.status(400).json({ message: "Credenciales inválidas" });
 
-    // Verifica si el estado del usuario es true
     if (userFound.estatus === false) {
       return res.status(400).json({ message: 'El usuario no tiene acceso' });
     }
 
-    // Compara las contraseñas
     const passwordMatch = await bcrypt.compare(password, userFound.password);
 
     if (!passwordMatch) {

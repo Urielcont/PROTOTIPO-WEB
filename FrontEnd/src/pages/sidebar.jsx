@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 
 function Sidepage() {
   const {logout, user}= useAuth();
-  console.log(user)
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
   const toggleSidebar = () => {

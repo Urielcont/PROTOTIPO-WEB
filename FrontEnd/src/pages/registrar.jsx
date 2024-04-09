@@ -113,18 +113,10 @@ function Register() {
             >
               Entrar
             </button>
-            <p className="text-gray-700">¿Ya tienes una cuenta?<a href="/login" className="text-blue-500">Inicia sesión</a></p>
+
           </form>
         </div>
-        <div className="flex-1 flex justify-end">
-          <div className='bg-indigo-500 w-3/4 h-screen p-8 text-white bg-cover flex justify-center flex-col' style={{backgroundImage: "url('https://i.pinimg.com/564x/da/54/23/da542336e9bb92257fe2b2aedf30060a.jpg')"}}>
-            <div className='text-center'>
-              <h1 className="text-4xl text-gray-900 mb-4">Bienvenido</h1>
-              <img className="ml-56" src={logo} alt="logo" />
-              <p className="mt-4 text-gray-800">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis veritatis fuga repudiandae nostrum exercitationem quo, fugit necessitatibus? Non vel reprehenderit architecto hic, explicabo dolorem autem minima aspernatur eum magnam id!</p>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   );

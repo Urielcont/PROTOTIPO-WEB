@@ -9,6 +9,7 @@ function Editar() {
   const navigate = useNavigate();
   const { setValue, register, handleSubmit } = useForm();
   const { getUsers, updateUser } = useAuth();
+  const [rolValue, setRolValue] = useState(false);
   const params = useParams();
 
   useEffect(() => {
@@ -88,6 +89,13 @@ function Editar() {
 
             <p className="mt-2">No. Teléfono</p>
             <input {...register("telefono")} maxLength={10} className={`border-l-transparent border-blue-500 border-r-transparent border-t-transparent border-b-2 border-solid w-full`} id="telefono" type="number" placeholder="No. Teléfono" />
+
+            <p className="mt-2">Rol</p>
+            <select {...register("rol")} className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue" value={rolValue ? "administrador" : "empleado"} onChange={(e) => setRolValue(e.target.value === "administrador")} id="rol">
+              <option value="administrador">Administrador</option>
+              <option value="empleado">Empleado</option>
+            </select>
+
 
             <button type="submit"
               id="botonActualizar"

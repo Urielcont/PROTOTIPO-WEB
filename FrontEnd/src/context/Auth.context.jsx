@@ -54,14 +54,21 @@ export const AuthProvider = ({ children }) => {
     //Hace el registro
     const signup = async (user) => {
         try {
-            const res = await RegistrarUsuario(user);
-            setUser(res.data);
+          const response = await RegistrarUsuario(user);
+          
+          if (response.status === 201) {
+            setUser(response.data);
             setIsAuth(true);
+          } else {
+            console.error(response.data.message);
+            setErrors([response.data.message]);
+          }
         } catch (error) {
-            console.log(error.response);
-            setErrors(error.response.data);
+          console.error(error.message);
+          setErrors(["Error al intentar registrar el usuario"]);
         }
-    };
+      };
+      
 
     //Hace el login
     const signin = async (user) => {
