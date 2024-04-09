@@ -134,7 +134,7 @@ function VentasPage() {
                                         {/* <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaApertura).toLocaleString()}</td> */}
                                         <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaCerrar).toLocaleString()}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.totalGalones}</td>
-                                        <td className="border border-gray-300 px-4 py-2">{item.total}</td>
+                                        <td className="border border-gray-300 px-4 py-2">${item.total}</td>
                                     </tr>
                                 ))}
                             </tbody>
