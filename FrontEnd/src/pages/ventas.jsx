@@ -60,7 +60,7 @@ function VentasPage() {
                         </div>
                     </div>
                     <hr className="bg-linea" />
-                    <h1 className="text-3xl m-3">{ultimaVenta.total}</h1>
+                    <h1 className="text-3xl m-3">${ultimaVenta.total}</h1>
                 </div>
 
                 <div className="bg-slate-50 w-3/5 h-32 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">

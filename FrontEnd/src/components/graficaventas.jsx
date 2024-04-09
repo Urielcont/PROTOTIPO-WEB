@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { SensoresContext } from '../context/sensores.context';
 
 export function GraficaVentas() {
-  const { historialVentas } = useContext(SensoresContext);
+  const { historialVentas,totalVentas } = useContext(SensoresContext);
   const ultimos10Registros = historialVentas.slice(0, 10);
 
   const chartdata = ultimos10Registros.map(item => ({
@@ -17,6 +17,7 @@ export function GraficaVentas() {
     if (!active || !payload) return null;
     return (
       <div className="w-56 rounded-tremor-default border border-tremor-border bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
+         
         {payload.map((category, idx) => (
           <div key={idx} className="flex flex-1 space-x-2.5">
             <div
@@ -36,6 +37,10 @@ export function GraficaVentas() {
 
   return (
     <>
+    <h3 className="font-medium text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong text-black">
+         Total de ventas: $ {totalVentas}
+        </h3>
+
       <AreaChart
         className="mt-4 h-72"
         data={chartdata}

@@ -18,26 +18,12 @@ export const SensorProvider = ({ children }) => {
   const [nivelFlujo, setnivelFlujo] = useState([]);//Ultimo valor de Flujo en la base de datos
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
   const [ultimaVenta, setultimaVenta]=useState([]);
+  const [totalVentas, settotalVentas]=useState([]);
+
 
   // variable usada para conectar a la api
   const api = "http://localhost:4000/api"
   // -------OBTENER ULTIMO DATO DE LA BASE DE DATOS DE SENSORES----
-  //   try {
-  //     useEffect(() => {
-  //         // Función para obtener los últimos datos de cada sección
-
-
-
-
-
-  //         const interval = setInterval(obtenerUltimoDato, 1000);
-
-
-  //         return () => clearInterval(interval);
-  //     }, []);
-  // } catch (error) {
-  //     console.log("Error al llamar los datos", error)
-  // }
   useEffect(() => {
     MostrarFlujo();
     obtenerUltimoDato();
@@ -51,6 +37,8 @@ export const SensorProvider = ({ children }) => {
       const responseFlujo = await axios.get(`${api}/flujo`);
       const responseTurbidez = await axios.get(`${api}/turbidez`);
       const responseVenta = await axios.get(`${api}/UltimaVenta`);
+      const responsetotalVentas = await axios.get(`${api}/TotalVentas`);
+
       // Formatear la fecha de los datos
       const datosPh = {
         ...responsePh.data,
@@ -68,6 +56,8 @@ export const SensorProvider = ({ children }) => {
       setnivelFlujo(datosFlujo);
       setnivelTurbidez(datosTurbidez);
       setultimaVenta(responseVenta.data)
+      settotalVentas(responsetotalVentas.data.total_ventas)
+
     } catch (error) {
       console.error("Error al obtener los datos:", error);
     }
@@ -101,6 +91,7 @@ export const SensorProvider = ({ children }) => {
   };
   
   
+  
 
 
   return (
@@ -112,6 +103,7 @@ export const SensorProvider = ({ children }) => {
       nivelTurbidez,
       ultimaVenta,
       historialVentas,
+      totalVentas,
 
     }}>
       {children}

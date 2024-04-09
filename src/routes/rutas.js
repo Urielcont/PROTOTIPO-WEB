@@ -40,6 +40,8 @@ router.get("/usuarios/eliminados", controller.getDeletedUsers);
 
 
 // Ventas y Aguas
+router.post('/agregarVenta',ventas.agregarVenta);
 router.get('/UltimaVenta',ventas.MostrarUltimaVenta);
 router.get('/Ventas',ventas.MostrarVentas);
+router.get('/TotalVentas',ventas.SumarTotalVentas)
 module.exports = router;
