@@ -51,7 +51,7 @@ function AgregarPage() {
         if (result.isConfirmed) {
           values.rol = rolValue;
           await signup(values);
-          reset(); // Reinicia el formulario
+          reset();
           Swal.fire({
             title: 'Usuario agregado',
             text: 'El usuario se ha agregado exitosamente',
