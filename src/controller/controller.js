@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
     const userFound = await User.findOne({ correo });
     if (!userFound) return res.status(400).json({ message: "Credenciales inválidas" });
 
-    if (userFound.estatus === false) {
+    if (userFound.estatus === false || userFound.rol===false) {
       return res.status(400).json({ message: 'El usuario no tiene acceso' });
     }
 
