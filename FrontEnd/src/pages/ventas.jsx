@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 
 
 function VentasPage() {
-    const { ultimaVenta, historialVentas } = useContext(SensoresContext);
+    const { ultimaVenta, historialVentas,totalSemanaVentas,totalMesVentas } = useContext(SensoresContext);
     const [filtroFecha, setFiltroFecha] = useState('hoy');
 
     // Función para filtrar los datos según el filtro de fecha seleccionado
@@ -62,15 +62,15 @@ function VentasPage() {
                     <hr className="bg-linea" />
                     <h1 className="text-3xl m-3">${ultimaVenta.total}</h1>
                 </div>
-
-                <div className="bg-slate-50 w-3/5 h-32 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
+                {/* Periodo */}
+                {/* <div className="bg-slate-50 w-3/5 h-32 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
                     <div className="flex justify-between ">
                         <h1 className="font-semibold m-2 text-xl">Periodo:</h1>
                     </div>
                     <hr className="bg-linea" />
 
                     <input type="date" name="" id="" className="ml-8 mt-3 bg-customBlue3 rounded-xl border-none text-white w-5/6 " />
-                </div>
+                </div> */}
             </div>
             {/*Implementacion de la grafica de ventas del mes */}
             <div className="flex justify-center mt-10">
@@ -89,7 +89,7 @@ function VentasPage() {
                         </div>
                     </div>
                     <hr className="bg-linea" />
-                    <h1 className="text-3xl m-3">$ 2,102</h1>
+                    <h1 className="text-3xl m-3">$ {totalSemanaVentas}</h1>
                 </div>
 
                 <div className="bg-slate-50 w-full h-32 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
@@ -100,7 +100,7 @@ function VentasPage() {
                         </div>
                     </div>
                     <hr className="bg-linea" />
-                    <h1 className="text-3xl m-3">$ 4,902</h1>
+                    <h1 className="text-3xl m-3">$ {totalMesVentas}</h1>
                 </div>
 
             </div>
@@ -122,7 +122,7 @@ function VentasPage() {
                         <table className="w-full border-collapse border text-center border-gray-300">
                             <thead>
                                 <tr>
-                                    <th className="border border-gray-300 px-4 py-2">Fecha Apertura</th>
+                                    {/* <th className="border border-gray-300 px-4 py-2">Fecha Apertura</th> */}
                                     <th className="border border-gray-300 px-4 py-2">Fecha Terminada</th>
                                     <th className="border border-gray-300 px-4 py-2">Garrafones Vendidos</th>
                                     <th className="border border-gray-300 px-4 py-2">Total</th>
@@ -131,7 +131,7 @@ function VentasPage() {
                             <tbody>
                                 {ultimos10Registros.map((item, index) => (
                                     <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaApertura).toLocaleString()}</td>
+                                        {/* <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaApertura).toLocaleString()}</td> */}
                                         <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaCerrar).toLocaleString()}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.totalGalones}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.total}</td>

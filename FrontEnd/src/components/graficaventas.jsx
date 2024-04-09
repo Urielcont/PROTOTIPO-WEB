@@ -37,7 +37,7 @@ export function GraficaVentas() {
 
   return (
     <>
-    <h3 className="font-medium text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong text-black">
+    <h3 className="font-medium text-2x1 dark:text-dark-tremor-content-strong text-black">
          Total de ventas: $ {totalVentas}
         </h3>
 

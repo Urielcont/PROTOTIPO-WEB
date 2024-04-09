@@ -44,4 +44,7 @@ router.post('/agregarVenta',ventas.agregarVenta);
 router.get('/UltimaVenta',ventas.MostrarUltimaVenta);
 router.get('/Ventas',ventas.MostrarVentas);
 router.get('/TotalVentas',ventas.SumarTotalVentas)
+router.get('/TotalSemanaVentas',ventas.SumarVentasSemana)
+router.get('/TotalMesVentas',ventas.SumarVentasMes)
+
 module.exports = router;
