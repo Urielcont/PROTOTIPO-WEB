@@ -69,6 +69,62 @@ exports.SumarTotalVentas = async (req, res) => {
     }
 };
 
+exports.SumarVentasSemana = async (req, res) => {
+    try {
+        const fechaActual = new Date();
+
+        const primerDiaSemana = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() - fechaActual.getDay() + 1);
+
+        const resultadoSemana = await Ventas.aggregate([
+            {
+                $match: {
+                    fechaCerrar: { $gte: primerDiaSemana }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    total_ventas_semana: { $sum: "$total" }
+                }
+            }
+        ]);
+
+        const totalVentasSemana = resultadoSemana.length > 0 ? resultadoSemana[0].total_ventas_semana : 0;
+
+        res.json({ total_ventas_semana: totalVentasSemana });
+    } catch (error) {
+        console.error("Error al sumar las ventas de la semana:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
+};
+
+exports.SumarVentasMes = async (req, res) => {
+    try {
+        const fechaActual = new Date();
+        const primerDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+        const resultadoMes = await Ventas.aggregate([
+            {
+                $match: {
+                    fechaCerrar: { $gte: primerDiaMes } 
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    total_ventas_mes: { $sum: "$total" }
+                }
+            }
+        ]);
+
+        const totalVentasMes = resultadoMes.length > 0 ? resultadoMes[0].total_ventas_mes : 0;
+
+        res.json({ total_ventas_mes: totalVentasMes });
+    } catch (error) {
+        console.error("Error al sumar las ventas del mes:", error);
+        res.status(500).json({ message: "Error del servidor" });
+    }
+};
+
 
 exports.TotalVentasPorFecha = async (req, res) => {
     try {

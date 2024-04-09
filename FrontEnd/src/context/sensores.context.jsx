@@ -19,6 +19,8 @@ export const SensorProvider = ({ children }) => {
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
   const [ultimaVenta, setultimaVenta]=useState([]);
   const [totalVentas, settotalVentas]=useState([]);
+  const [totalSemanaVentas, settotalSemanaVentas]=useState([]);
+  const [totalMesVentas, settotalMesVentas]=useState([]);
 
 
   // variable usada para conectar a la api
@@ -38,6 +40,8 @@ export const SensorProvider = ({ children }) => {
       const responseTurbidez = await axios.get(`${api}/turbidez`);
       const responseVenta = await axios.get(`${api}/UltimaVenta`);
       const responsetotalVentas = await axios.get(`${api}/TotalVentas`);
+      const responsetotalSemanaVentas = await axios.get(`${api}/TotalSemanaVentas`);
+      const responsetotalMesVentas = await axios.get(`${api}/TotalMesVentas`);
 
       // Formatear la fecha de los datos
       const datosPh = {
@@ -57,6 +61,10 @@ export const SensorProvider = ({ children }) => {
       setnivelTurbidez(datosTurbidez);
       setultimaVenta(responseVenta.data)
       settotalVentas(responsetotalVentas.data.total_ventas)
+      settotalSemanaVentas(responsetotalSemanaVentas.data.total_ventas_semana)
+      settotalMesVentas(responsetotalMesVentas.data.total_ventas_mes)
+      // console.log("venta sem",responsetotalSemanaVentas.data.total_ventas_semana)
+      // console.log(responsetotalMesVentas.data.total_ventas_mes)
 
     } catch (error) {
       console.error("Error al obtener los datos:", error);
@@ -104,6 +112,8 @@ export const SensorProvider = ({ children }) => {
       ultimaVenta,
       historialVentas,
       totalVentas,
+      totalMesVentas,
+      totalSemanaVentas
 
     }}>
       {children}
