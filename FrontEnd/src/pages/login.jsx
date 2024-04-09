@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import logo from "../assets/images/logo_copy.png";
 
 function Login() {
-  const { signin, errors: loginErrors } = useAuth();
+  const { signin, errors: loginErrors, user } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [formCompleted, setFormCompleted] = useState(false);
@@ -25,14 +25,24 @@ function Login() {
   }, [loginErrors]);
 
   const onSubmit = handleSubmit(async (data) => {
+
     await signin(data);
+
+    if (user.rol ===true && user.estatus === true) {
       navigate("/Inicio");
+
       Swal.fire({
         icon: 'success',
         title: '¡Inicio de sesión exitoso!',
         text: 'Bienvenido de vuelta',
       });
-    
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Acceso denegado',
+        text: 'No tienes permiso para acceder.',
+      });
+    }
   });
 
   const checkFormCompletion = () => {
