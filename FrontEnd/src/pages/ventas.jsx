@@ -1,11 +1,11 @@
 import SidePage from "./sidebar";
 import { GraficaVentas } from "../components/graficaventas";
 import { SensoresContext } from "../context/sensores.context";
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 
 
 function VentasPage() {
-    const { historialFlujo } = useContext(SensoresContext);
+    const { ultimaVenta, historialVentas } = useContext(SensoresContext);
     const [filtroFecha, setFiltroFecha] = useState('hoy');
 
     // Función para filtrar los datos según el filtro de fecha seleccionado
@@ -13,27 +13,27 @@ function VentasPage() {
         switch (filtroFecha) {
             case 'hoy':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     return fechaItem.getDate() === fechaHoy.getDate() && fechaItem.getMonth() === fechaHoy.getMonth() && fechaItem.getFullYear() === fechaHoy.getFullYear();
                 });
             case 'ultimos7dias':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     const fechaLimite = new Date(fechaHoy.getTime() - 7 * 24 * 60 * 60 * 1000);
                     return fechaItem >= fechaLimite;
                 });
             case 'ultimos30dias':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     const fechaLimite = new Date(fechaHoy.getTime() - 30 * 24 * 60 * 60 * 1000);
                     return fechaItem >= fechaLimite;
                 });
             case 'ultimos365dias':
                 return historial.filter(item => {
-                    const fechaItem = new Date(item.fecha);
+                    const fechaItem = new Date(item.fechaCerrar);
                     const fechaHoy = new Date();
                     const fechaLimite = new Date(fechaHoy.getTime() - 365 * 24 * 60 * 60 * 1000);
                     return fechaItem >= fechaLimite;
@@ -42,7 +42,7 @@ function VentasPage() {
                 return historial;
         }
     };
-    const ultimos10Registros = filtrarDatos(historialFlujo).reverse();
+    const ultimos10Registros = filtrarDatos(historialVentas).reverse();
     return (
         <div className="m-0 ">
             <h1 className="text-xl flex justify-center">Ventas del dia</h1>
@@ -54,13 +54,13 @@ function VentasPage() {
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-full h-32 ml-80 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
                     <div className="flex justify-between ">
-                        <h1 className="font-semibold m-2 text-xl">Total de Venta Actual</h1>
-                        <div className="bg-customBlue3 w-16 h-7 m-2 text-center font-semibold text-white rounded-xl ">
-                            <h2>Hoy</h2>
+                        <h1 className="font-semibold m-2 text-xl">Total de Ultima Venta</h1>
+                        <div className="bg-customBlue3 w-24 h-7 m-2 text-center font-semibold text-white rounded-xl ">
+                            <h2 className="text-center p-1">{new Date(ultimaVenta.fechaCerrar).toLocaleDateString()}</h2>
                         </div>
                     </div>
                     <hr className="bg-linea" />
-                    <h1 className="text-3xl m-3">$ 1,760</h1>
+                    <h1 className="text-3xl m-3">${ultimaVenta.total}</h1>
                 </div>
 
                 <div className="bg-slate-50 w-3/5 h-32 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
@@ -75,7 +75,7 @@ function VentasPage() {
             {/*Implementacion de la grafica de ventas del mes */}
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-full h-1/6 ml-80 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
-                    <h1 className="font-semibold text-2xl text-center">Ventas del mes</h1>
+                    <h1 className="font-semibold text-2xl text-center">Ventas</h1>
                     <GraficaVentas></GraficaVentas>
                 </div>
             </div>
@@ -122,7 +122,8 @@ function VentasPage() {
                         <table className="w-full border-collapse border text-center border-gray-300">
                             <thead>
                                 <tr>
-                                    <th className="border border-gray-300 px-4 py-2">Fecha</th>
+                                    <th className="border border-gray-300 px-4 py-2">Fecha Apertura</th>
+                                    <th className="border border-gray-300 px-4 py-2">Fecha Terminada</th>
                                     <th className="border border-gray-300 px-4 py-2">Garrafones Vendidos</th>
                                     <th className="border border-gray-300 px-4 py-2">Total</th>
                                 </tr>
@@ -130,9 +131,10 @@ function VentasPage() {
                             <tbody>
                                 {ultimos10Registros.map((item, index) => (
                                     <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fecha).toLocaleDateString()}</td>
-                                        <td className="border border-gray-300 px-4 py-2">{item.mlSalidos}</td>
-                                        <td className="border border-gray-300 px-4 py-2">{item.estado}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaApertura).toLocaleString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fechaCerrar).toLocaleString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{item.totalGalones}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{item.total}</td>
                                     </tr>
                                 ))}
                             </tbody>

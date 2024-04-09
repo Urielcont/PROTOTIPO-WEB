@@ -85,7 +85,7 @@ function FlujoPage() {
                         <table className="w-full border-collapse border text-center border-gray-300">
                             <thead>
                                 <tr>
-                                    <th className="border border-gray-300 px-4 py-2">Fecha</th>
+                                    <th className="border border-gray-300 px-4 py-2">Fecha y Hora</th>
                                     <th className="border border-gray-300 px-4 py-2">Cantidad de Salida (ml)</th>
                                     <th className="border border-gray-300 px-4 py-2">Estado</th>
                                 </tr>
@@ -93,7 +93,7 @@ function FlujoPage() {
                             <tbody>
                                 {ultimos10Registros.map((item, index) => (
                                     <tr key={index} className={index % 2 === 0 ? "bg-gray-100" : ""}>
-                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fecha).toLocaleDateString()}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{new Date(item.fecha).toLocaleString()}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.mlSalidos}</td>
                                         <td className="border border-gray-300 px-4 py-2">{item.estado}</td>
                                     </tr>

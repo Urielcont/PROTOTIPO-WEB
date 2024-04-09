@@ -3,6 +3,7 @@ const controller = require("../controller/controller.js");
 const ph = require("../controller/ph.controller.js");
 const turbidez = require("../controller/turbidez.controller.js");
 const flujo= require("../controller/flujo.controller.js");
+const ventas = require('../controller/controllerVentas.js')
 const router =express.Router();
 const { authRequired } = require('../middleware/validarToken.js');
 const { validarSchema } = require('../middleware/validate.middleware.js');
@@ -37,4 +38,10 @@ router.put("/usuario/:id", controller.updateUser);
 router.put('/bajaUsuario/:iduser', controller.bajalogicaUser);
 router.get("/usuarios/eliminados", controller.getDeletedUsers);
 
+
+// Ventas y Aguas
+router.post('/agregarVenta',ventas.agregarVenta);
+router.get('/UltimaVenta',ventas.MostrarUltimaVenta);
+router.get('/Ventas',ventas.MostrarVentas);
+router.get('/TotalVentas',ventas.SumarTotalVentas)
 module.exports = router;

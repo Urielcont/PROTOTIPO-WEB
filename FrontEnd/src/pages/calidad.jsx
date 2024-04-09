@@ -15,11 +15,11 @@ function CalidadPage() {
             
 
             {/*Segunda seccion de turbidez */}
-            <h1 className="text-center font-semibold text-3xl ml-60 mt-9">Datos de la Turbidez del agua</h1>
+            <h1 className="text-center font-semibold text-3xl ml-60 mt-9">Datos de la Calidad del agua</h1>
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-3/6 h-32 ml-80 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
                     <div className="flex justify-between ">
-                        <h1 className="font-semibold m-2  text-xl">Turbidez actual</h1>
+                        <h1 className="font-semibold m-2  text-xl">Calidad actual</h1>
                         <div className=" w-16 h-7 text-center">
                             <i className="bi-tsunami" style={{ fontSize: '1.8rem' }}></i>
                         </div>
@@ -32,7 +32,7 @@ function CalidadPage() {
 
                 <div className="bg-slate-50 w-3/5 h-32 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
                     <div className="flex justify-between ">
-                        <h1 className="font-semibold m-2 text-xl">Turbidez esta semana</h1>
+                        <h1 className="font-semibold m-2 text-xl">Calidad esta semana</h1>
                         <div className=" w-16 h-7 text-center">
                             <i className="bi-tsunami" style={{ fontSize: '1.8rem' }}></i>
                         </div>
@@ -46,7 +46,7 @@ function CalidadPage() {
             {/*Implementacion de la grafica del ph del mes */}
             <div className="flex justify-center mt-10">
                 <div className="bg-slate-50 w-4/6 h-1/6 ml-80 mb-8 mr-10 rounded-xl shadow-md shadow-zinc-400 hover:shadow-customBlue3">
-                    <h1 className="font-semibold text-2xl text-center">Registro turbidez este mes</h1>
+                    <h1 className="font-semibold text-2xl text-center">Registro de Calidad este mes</h1>
                     <GraficaTur></GraficaTur>
                 </div>
             </div>

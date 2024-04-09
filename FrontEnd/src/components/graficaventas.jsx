@@ -1,39 +1,23 @@
 /* eslint-disable react/prop-types */
 import { AreaChart } from '@tremor/react';
-
-const chartdata = [
-  {
-    date: 'Jan 23',
-    Ventas: 167,
-  },
-  {
-    date: 'Feb 23',
-    Ventas: 125,
-  },
-  {
-    date: 'Mar 23',
-    Ventas: 156,
-  },
-  {
-    date: 'Apr 23',
-    Ventas: 165,
-  },
-  {
-    date: 'May 23',
-    Ventas: 153,
-  },
-  {
-    date: 'Jun 23',
-    Ventas: 124,
-  },
-];
+import { useContext } from 'react';
+import { SensoresContext } from '../context/sensores.context';
 
 export function GraficaVentas() {
+  const { historialVentas,totalVentas } = useContext(SensoresContext);
+  const ultimos10Registros = historialVentas.slice(0, 10);
+
+  const chartdata = ultimos10Registros.map(item => ({
+    date: new Date(item.fechaCerrar).toLocaleDateString(),
+    Venta: item.total
+  }));
+
   const customTooltip = (props) => {
     const { payload, active } = props;
     if (!active || !payload) return null;
     return (
       <div className="w-56 rounded-tremor-default border border-tremor-border bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
+         
         {payload.map((category, idx) => (
           <div key={idx} className="flex flex-1 space-x-2.5">
             <div
@@ -50,13 +34,18 @@ export function GraficaVentas() {
       </div>
     );
   };
+
   return (
     <>
+    <h3 className="font-medium text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong text-black">
+         Total de ventas: $ {totalVentas}
+        </h3>
+
       <AreaChart
         className="mt-4 h-72"
         data={chartdata}
         index="date"
-        categories={['Ventas']}
+        categories={['Venta']}
         colors={['green']}
         yAxisWidth={30}
         customTooltip={customTooltip}

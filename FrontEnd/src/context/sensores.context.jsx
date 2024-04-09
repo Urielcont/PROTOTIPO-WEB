@@ -13,34 +13,22 @@ export const SensorProvider = ({ children }) => {
 
   const [historialFlujo, setHistorialFlujo] = useState([]);
   const [historialPh, setHistorialPh] = useState([]);
+  const [historialVentas, sethistorialVentas]=useState([]);
   const [nivelPh, setnivelPh] = useState([]); //Ultimo valor de ph en la base de datos
   const [nivelFlujo, setnivelFlujo] = useState([]);//Ultimo valor de Flujo en la base de datos
   const [nivelTurbidez, setnivelTurbidez] = useState([]);//Ultimo valor de Turbidez en la base de datos
+  const [ultimaVenta, setultimaVenta]=useState([]);
+  const [totalVentas, settotalVentas]=useState([]);
 
 
   // variable usada para conectar a la api
   const api = "http://localhost:4000/api"
   // -------OBTENER ULTIMO DATO DE LA BASE DE DATOS DE SENSORES----
-  //   try {
-  //     useEffect(() => {
-  //         // Función para obtener los últimos datos de cada sección
-
-
-
-
-
-  //         const interval = setInterval(obtenerUltimoDato, 1000);
-
-
-  //         return () => clearInterval(interval);
-  //     }, []);
-  // } catch (error) {
-  //     console.log("Error al llamar los datos", error)
-  // }
   useEffect(() => {
     MostrarFlujo();
     obtenerUltimoDato();
     MostrarPh();
+    MostrarVentas();
   }, []);
   const obtenerUltimoDato = async () => {
     try {
@@ -48,6 +36,8 @@ export const SensorProvider = ({ children }) => {
       const responsePh = await axios.get(`${api}/ph`);
       const responseFlujo = await axios.get(`${api}/flujo`);
       const responseTurbidez = await axios.get(`${api}/turbidez`);
+      const responseVenta = await axios.get(`${api}/UltimaVenta`);
+      const responsetotalVentas = await axios.get(`${api}/TotalVentas`);
 
       // Formatear la fecha de los datos
       const datosPh = {
@@ -65,6 +55,9 @@ export const SensorProvider = ({ children }) => {
       setnivelPh(datosPh);
       setnivelFlujo(datosFlujo);
       setnivelTurbidez(datosTurbidez);
+      setultimaVenta(responseVenta.data)
+      settotalVentas(responsetotalVentas.data.total_ventas)
+
     } catch (error) {
       console.error("Error al obtener los datos:", error);
     }
@@ -87,6 +80,17 @@ export const SensorProvider = ({ children }) => {
       console.error("Error Mostrar Ph:", error);
     }
   };
+
+  const MostrarVentas = async () => {
+    try {
+      const response = await axios.get(`${api}/Ventas`);
+      sethistorialVentas(response.data);
+    } catch (error) {
+      console.error("Error Mostrar las Ventas:", error);
+    }
+  };
+  
+  
   
 
 
@@ -97,6 +101,9 @@ export const SensorProvider = ({ children }) => {
       nivelPh,
       nivelFlujo,
       nivelTurbidez,
+      ultimaVenta,
+      historialVentas,
+      totalVentas,
 
     }}>
       {children}
