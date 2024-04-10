@@ -18,7 +18,7 @@ exports.MostrarUltimoFlujo = async (req, res) => {
 
 exports.MostrarFlujo = async (req, res) => {
     try {
-        const mostrarFlujo = await Flujo.find();
+        const mostrarFlujo = await Flujo.find().sort({ $natural: -1 });
         if (mostrarFlujo.length === 0) {
             return res.status(404).json({ message: "No se encontraron datos de pH" });
         }

@@ -38,7 +38,7 @@ exports.MostrarUltimaVenta = async (req, res) => {
 
 exports.MostrarVentas = async (req, res) => {
     try {
-        const ventas = await Ventas.find(); // Busca el último documento y selecciona solo el campo 'nivel_ph'
+        const ventas = await Ventas.find().sort({ $natural: -1 });
         if (!ventas) {
             return res.status(404).json({ message: "No se encontraron datos de las Ventas" });
         }

@@ -40,7 +40,7 @@ function FlujoPage() {
                 return historial;
         }
     };
-    const ultimos10Registros = filtrarDatos(historialFlujo).reverse();
+    const ultimos10Registros = filtrarDatos(historialFlujo);
 
     return (
         <div className="m-0 ">

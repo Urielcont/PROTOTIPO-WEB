@@ -42,7 +42,7 @@ function VentasPage() {
                 return historial;
         }
     };
-    const ultimos10Registros = filtrarDatos(historialVentas).reverse();
+    const ultimos10Registros = filtrarDatos(historialVentas);
     return (
         <div className="m-0 ">
             <h1 className="text-xl flex justify-center">Ventas del dia</h1>

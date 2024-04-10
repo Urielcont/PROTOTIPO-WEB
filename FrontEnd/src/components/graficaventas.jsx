@@ -5,7 +5,7 @@ import { SensoresContext } from '../context/sensores.context';
 
 export function GraficaVentas() {
   const { historialVentas,totalVentas } = useContext(SensoresContext);
-  const ultimos10Registros = historialVentas.slice(0, 10);
+  const ultimos10Registros = historialVentas.slice(0, 10).reverse();
 
   const chartdata = ultimos10Registros.map(item => ({
     date: new Date(item.fechaCerrar).toLocaleDateString(),

@@ -43,7 +43,7 @@ function PhPage() {
         }
     };
 
-    const ultimos10Registros = filtrarDatos(historialPh).reverse();
+    const ultimos10Registros = filtrarDatos(historialPh);
 
     return (
         <div className="m-0 ">
