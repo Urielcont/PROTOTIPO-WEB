@@ -35,7 +35,7 @@ exports.MostrarUltimoPH = async (req, res) => {
 exports.MostrarPh = async (req, res) => {
     try {
        
-        const mostrarPh = await PH.find(); // Busca los últimos 10 documentos y selecciona solo los campos 'nivel_ph' y 'fecha'
+        const mostrarPh = await PH.find().sort({ $natural: -1 }); // Busca los últimos 10 documentos y selecciona solo los campos 'nivel_ph' y 'fecha'
         if (mostrarPh.length === 0) {
             return res.status(404).json({ message: "No se encontraron datos de pH" });
         }

@@ -41,7 +41,7 @@ function CalidadPage() {
                 return historial;
         }
     };
-    const ultimos10Registros = filtrarDatos(historialCalidad).reverse();
+    const ultimos10Registros = filtrarDatos(historialCalidad);
 
     return (
         <div className="m-0 ">

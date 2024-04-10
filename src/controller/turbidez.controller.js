@@ -22,7 +22,7 @@ exports.subirTurbidez= async (req,res)=>{
 exports.MostrarTurbidez= async(req,res)=>{
     try {
        
-        const mostrarTurbidez = await Turbidez.find();
+        const mostrarTurbidez = await Turbidez.find().sort({ $natural: -1 });
         if (mostrarTurbidez.length === 0) {
             return res.status(404).json({ message: "No se encontraron datos de Turbidez" });
         }
