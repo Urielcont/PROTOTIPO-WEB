@@ -50,7 +50,7 @@ function AgregarPage() {
       }).then(async (result) => {
         if (result.isConfirmed) {
           values.rol = rolValue;
-          await signup(values);
+          await agregarUsers(values);
           reset();
           Swal.fire({
             title: 'Usuario agregado',
