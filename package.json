@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.mjs",
   "scripts": {
+    "build": "npm rebuild bcrypt --build-from-source",
     "dev": "node src/app.js",
     "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
