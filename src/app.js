@@ -4,14 +4,13 @@ const cookieParser=require("cookie-parser");
 const cors = require("cors");
 const rutas = require("./routes/rutas.js");
 const app = express();
-require("dotenv").config();
 
 // connectDB();
 connectDB();
 
 // middleware
 app.use(cors({
-  origin:process.env.FRONT,
+  origin:'http://localhost:5173',
   credentials:true
 }));
 app.use(express.json());
