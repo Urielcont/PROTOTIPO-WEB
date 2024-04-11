@@ -26,7 +26,7 @@ export const SensorProvider = ({ children }) => {
 
 
   // variable usada para conectar a la api
-  const api = 'https://api-rest-d8pr.onrender.com:10000/api'
+  const api = 'https://api-rest-d8pr.onrender.com/api'
   // -------OBTENER ULTIMO DATO DE LA BASE DE DATOS DE SENSORES----
   useEffect(() => {
     MostrarFlujo();
