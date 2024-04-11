@@ -64,11 +64,11 @@ function Login() {
             <h1 className="text-2xl text-black-900 mb-4">Iniciar sesión</h1>
 
             <div className="mb-4">
-              <input className="border-b-2 border-solid border-cyan-600 w-full" id="correo" type="email" placeholder="correo" {...register('correo', { required: true })} />
+              <input className={`border-b-2 border-solid ${errors.correo ? 'border-red-500' : 'border-cyan-600'} w-full`} id="correo" type="email" placeholder="correo" {...register('correo', { required: true })} />
               {errors.correo && <p className="text-red-500">Correo es requerido</p>}
             </div>
             <div className="mb-4">
-              <input className="border-b-2 border-solid border-cyan-600 w-full" id="password" type="password" placeholder="Contraseña" {...register('password', { required: true })} />
+              <input className={`border-b-2 border-solid ${errors.password ? 'border-red-500' : 'border-cyan-600'} w-full`} id="password" type="password" placeholder="Contraseña" {...register('password', { required: true })} />
               {errors.password && <p className="text-red-500">Contraseña es requerido</p>}
             </div>
             <button
