@@ -68,10 +68,6 @@ function Sidepage() {
             <Link to="/Ventas"><i className="bi bi-graph-up-arrow hover:text-blue-700"></i></Link>
             <Link to="/Ventas"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Ventas</span></Link>
           </div>
-          <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
-            <Link to="/Perfil"><i className="bi bi-person-circle hover:text-blue-700"></i></Link>
-            <Link to="/Perfil"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Perfil</span></Link>
-          </div>
           {user.rol === true ? 
           (
           <>
@@ -84,11 +80,16 @@ function Sidepage() {
           <></>
           )
           }
+          <div className="p-2 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer">
+            <Link to="/Perfil"><i className="bi bi-person-circle hover:text-blue-700"></i></Link>
+            <Link to="/Perfil"><span className="text-[17px] ml-4 text-black hover:text-blue-700">Perfil</span></Link>
+          </div>
+          
 
           <hr className="my-4 text-gray-600" />
           <div className="p-2 mt-10 flex items-center rounded-md px-4 duration-300 cursor-pointer">
             <i className="bi bi-box-arrow-in-right hover:text-blue-700"></i>
-            <span className="text-[17px] ml-4 text-black hover:text-blue-700" onClick={handleLogout}>Logout</span>
+            <span className="text-[17px] ml-4 text-black hover:text-blue-700" onClick={handleLogout}>Salir</span>
           </div>
         </div>
       </div>
