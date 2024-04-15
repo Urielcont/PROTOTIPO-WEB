@@ -38,6 +38,7 @@ router.get('/MostrarCalidad',turbidez.MostrarTurbidez)
 router.get('/turbidez',turbidez.MostrarUltimaTurbidez);
 router.put("/usuario/:id", controller.updateUser);
 router.put('/bajaUsuario/:iduser', controller.bajalogicaUser);
+router.put('/restaurarUsuario/:id', controller.restaurarUser);
 router.get("/usuarios/eliminados", controller.getDeletedUsers);
 
 

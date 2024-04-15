@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SidePage from "./sidebar";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import 'tailwindcss/tailwind.css';
 
 function AgregarPage() {
-  const { agregarUsers, errors: registerErrors } = useAuth();
+  const { users, agregarUsers, signup, errors: registerErrors } = useAuth();
   const [validacion, setValidacion] = useState([]);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [rolValue, setRolValue] = useState(false);
@@ -79,14 +79,14 @@ function AgregarPage() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <SidePage class="absolute"/>
+    <div className="flex">
+      <SidePage />
       <div className="flex flex-col justify-center items-center w-full">
-        <h1 className="text-4xl text-black">Agregar Usuario</h1>
+        <h1 className="mr-96 flex justify-center text-4xl text-black text-">Agregar Usuario</h1>
         <hr className="my-2 text-black" />
 
-        <div className="flex justify-center mb-10 ml-60">
-          <form onSubmit={onSubmit} onChange={checkFormCompletion} className="bg-slate-50 mt-4 md:w-2/3 border rounded py-10 px-10 text-gray-700 shadow-xl shadow-zinc-400 hover:shadow-customBlue3">
+        <div className="flex justify-center mb-10">
+          <form onSubmit={onSubmit} onChange={checkFormCompletion} className="bg-slate-50 mt-4 w-5/12 ml-80 border rounded py-10 px-10 text-gray-700 shadow-xl shadow-zinc-400 hover:shadow-customBlue3">
             <div className="mb-4">
               {registerErrors.length > 0 && (
                 <div className="bg-red-500 p-2 text-white text-center m-2">
@@ -131,6 +131,9 @@ function AgregarPage() {
             <button type="submit" disabled={!formCompleted} id="botonAgregar" className={`mt-4 rounded-full self-center text-white p-2 w-36 ${formCompleted ? "bg-blue-500 hover:bg-blue-600" : "disabled-button"}`}>
               Agregar
             </button>
+            <button className=" bg-red-500 text-white ml-4 py-1 px-2 p-2 w-36 h-10 hover:bg-red-600 items-center rounded-full" onClick={() => navigate("/user")}>
+              Cancelar
+              </button>
           </form>
         </div>
       </div>

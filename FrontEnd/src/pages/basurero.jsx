@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SidePage from "./sidebar";
-import { getDeletedUsersRequest } from "../api/auth";
+import { getDeletedUsersRequest, restoreUserRequest } from "../api/auth";
 import Swal from 'sweetalert2';
 import { useAuth } from "../context/Auth.context";
 
@@ -53,6 +53,39 @@ function UsuariosEliminadosPage() {
         });
     };
 
+    const handleRestoreUser = async (id) => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Se restaurará este usuario",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, restaurar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await restoreUserRequest(id); // Aquí se corrige la llamada a la función de restaurar usuario
+                    const updatedUsers = deletedUsers.filter(user => user._id !== id);
+                    setDeletedUsers(updatedUsers);
+                    Swal.fire(
+                        'Restaurado!',
+                        'El usuario ha sido restaurado exitosamente.',
+                        'success'
+                    );
+                } catch (error) {
+                    console.error("Error al restaurar el usuario:", error);
+                    Swal.fire(
+                        'Error!',
+                        'Ocurrió un error al intentar restaurar el usuario.',
+                        'error'
+                    );
+                }
+            }
+        });
+    };
+
     return (
         <div className="m-0">
             <div className="flex justify-between items-center mb-4">
@@ -72,6 +105,7 @@ function UsuariosEliminadosPage() {
                             <th className="w-1/5 border border-gray-400 px-4 py-2">Teléfono</th>
                             <th className="w-1/5 border border-gray-400 px-4 py-2">Fecha de Eliminación</th>
                             <th className="w-1/5 border border-gray-400 px-4 py-2">Borrar</th>
+                            <th className="w-1/5 border border-gray-400 px-4 py-2">Restaurar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,6 +122,14 @@ function UsuariosEliminadosPage() {
                                         className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
                                     >
                                         Eliminar
+                                    </button>
+                                </td>
+                                <td className="border border-gray-400 px-4 py-2">
+                                    <button 
+                                        onClick={() => handleRestoreUser(user._id)}
+                                        className="bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600"
+                                    >
+                                        Restaurar
                                     </button>
                                 </td>
                             </tr>

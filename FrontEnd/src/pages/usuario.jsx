@@ -101,20 +101,18 @@ function UsuariosPage() {
                 <h1 className="ml-96 text-4xl text-black">Usuarios</h1>
                 <div className="flex items-center">
                     
-                <input
-                type="text"
-                placeholder="Buscar..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className=" border-l-transparent border-blue-500 border-r-transparent border-t-transparent border-b-2 border-solid mt-3 mr-2"
-                style={{ width: '400px'}}
-            />
+                    <input
+                        type="text"
+                        placeholder="Buscar..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className=" border-l-transparent border-blue-500 border-r-transparent border-t-transparent border-b-2 border-solid mt-3 mr-2"
+                        style={{ width: '400px'}}
+                    />
 
-                    <button onClick={handleDelete} className="flex items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600 mr-2">
-                        Eliminar
-                    </button>
-                    <Link to="/agregar" className="bi bi-person-plus items-center bg-blue-500 text-white mt-3 mr-2 py-2 px-4 rounded-full hover:bg-blue-600"></Link>
-                    <a className="bi bi-trash items-center bg-red-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-red-600" href="/basurero"></a>
+                    <button onClick={handleDelete} className="bi bi-trash flex items-center bg-red-500 text-white h-10 mt-3 py-2 px-4 rounded-full hover:bg-red-600 mr-2"></button>
+                    <Link to="/agregar" className="bi bi-person-add items-center bg-blue-500 text-white mt-3 mr-2 py-2 px-4 rounded-full hover:bg-blue-600"></Link>
+                    <a className="bi bi-person-dash items-center bg-green-500 text-white mt-3 py-2 px-4 rounded-full hover:bg-green-600 mr-4" href="/basurero"></a>
                 </div>
             </div>
             <hr className="my-2 text-black" />
@@ -122,26 +120,30 @@ function UsuariosPage() {
                 <SidePage/>
             </div>
             <div className="grid ml-80 md:grid-cols-2">
-                {filteredUsers.map((user) => (
-                    <div key={user._id} className="bg-white rounded-lg shadow-md p-4 m-2 flex items-center justify-between">
-                        <div>
-                            <h1 className="text-xl font-semibold">{user.nombres} {user.apellidos}</h1>
-                            <p className="text-gray-600">{user.correo}</p>
-                            <p className="text-gray-600">{user.telefono}</p>
+                {filteredUsers.length === 0 ? (
+                    <div className="text-center text-gray-600 mt-8 mb-4 text-2xl font-bold">No se ha encontrado ningún usuario</div>
+                ) : (
+                    filteredUsers.map((user) => (
+                        <div key={user._id} className="bg-white rounded-lg shadow-md p-4 m-2 flex items-center justify-between">
+                            <div>
+                                <h1 className="text-xl font-semibold">{user.nombres} {user.apellidos}</h1>
+                                <p className="text-gray-600">{user.correo}</p>
+                                <p className="text-gray-600">{user.telefono}</p>
+                            </div>
+                            <div className="flex items-center">
+                                <input 
+                                    type="checkbox" 
+                                    className="rounded-xl mr-2" 
+                                    onChange={() => handleCheckboxChange(user._id)}
+                                    checked={selectedUsers.includes(user._id)}
+                                />
+                                <Link to={`/editar/${user._id}`}>
+                                    <span className="bi bi-pencil text-blue-500"></span>
+                                </Link>
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <input 
-                                type="checkbox" 
-                                className="rounded-xl mr-2" 
-                                onChange={() => handleCheckboxChange(user._id)}
-                                checked={selectedUsers.includes(user._id)}
-                            />
-                            <Link to={`/editar/${user._id}`}>
-                                <span className="bi bi-pencil text-blue-500"></span>
-                            </Link>
-                        </div>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
         </div>
     );

@@ -139,6 +139,7 @@ exports.usuario = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -153,6 +154,7 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ message: "Error al obtener usuarios." });
   }
 };
+
 exports.verifyToken=async(req,res)=>{
   const {token} =req.cookies;
 
@@ -174,6 +176,7 @@ exports.verifyToken=async(req,res)=>{
     })
   })
 }
+
 exports.bajalogicaUser = async (req, res) => {
   try {
       const { iduser } = req.params;
@@ -190,6 +193,25 @@ exports.bajalogicaUser = async (req, res) => {
   } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error al realizar la baja lógica del usuario " });
+  }
+};
+
+exports.restaurarUser = async (req, res) => {
+  try {
+      const { id } = req.params;
+      const usuario = await User.findByIdAndUpdate(id, {
+          estatus: true,
+          fechaEliminacion: new Date()
+      }, { new: false });
+
+      if (!usuario) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      res.status(200).json({ message: "restauración de Usuario", usuario });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error al realizar la restauracion del usuario " });
   }
 };
 
