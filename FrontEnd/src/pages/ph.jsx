@@ -104,12 +104,15 @@ function PhPage() {
             <div className="flex justify-center ml-80 mt-12">
                 <div className="w-8/12 mb-10">
                     <h1 className="text-center text-xl mb-3">Historial reciente de PH</h1>
+                    {ultimos10Registros.length === 0 ? (
+                    <p className="text-center text-red-500">No se encontraron datos.</p>
+                ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full border-collapse border text-center border-gray-300">
                             <thead>
                                 <tr>
                                     <th className="border border-gray-300 px-4 py-2">Fecha</th>
-                                    <th className="border border-gray-300 px-4 py-2">Cantidad de Salida (ml)</th>
+                                    <th className="border border-gray-300 px-4 py-2">Nivel</th>
                                     <th className="border border-gray-300 px-4 py-2">Estado</th>
                                 </tr>
                             </thead>
@@ -124,6 +127,7 @@ function PhPage() {
                             </tbody>
                         </table>
                     </div>
+                )}
                 </div>
             </div>
 
