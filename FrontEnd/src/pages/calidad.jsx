@@ -99,7 +99,7 @@ function CalidadPage() {
             </div>
             <div className="flex justify-center ml-80 mt-12">
                 <div className="w-8/12 mb-10">
-                    <h1 className="text-center text-xl mb-3">Historial de Flujo</h1>
+                    <h1 className="text-center text-xl mb-3">Historial de la calidad del agua</h1>
                     <div className="overflow-x-auto">
                         <table className="w-full border-collapse border text-center border-gray-300">
                             <thead>

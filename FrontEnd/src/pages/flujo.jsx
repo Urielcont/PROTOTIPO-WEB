@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import SidePage from "./sidebar";
 import { SensoresContext } from "../context/sensores.context";
+import  Paginacion  from "../components/Paginacion"
 
 function FlujoPage() {
     const { historialFlujo, nivelFlujo } = useContext(SensoresContext);
@@ -102,6 +103,9 @@ function FlujoPage() {
                         </table>
                     </div>
                 </div>
+            </div>
+            <div className="flex justify-center 2xl:ml-72 xl:ml-72 lg:ml-72 md:ml-72 mb-10">
+                <Paginacion/>
             </div>
 
         </div>
