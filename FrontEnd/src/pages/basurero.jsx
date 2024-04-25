@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import SidePage from "./sidebar";
+import { Link } from "react-router-dom";
 import { getDeletedUsersRequest, restoreUserRequest } from "../api/auth";
 import Swal from 'sweetalert2';
 import { useAuth } from "../context/Auth.context";
@@ -90,7 +91,9 @@ function UsuariosEliminadosPage() {
         <div className="m-0">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="ml-96 text-4xl text-black">Papelera</h1>
+                <Link to="/user" className=" arrow-left items-center bg-blue-500 text-white mt-3 mr-2 py-2 px-4 rounded-full hover:bg-blue-600">Regresar</Link>
             </div>
+            
             <hr className="my-2 text-black" />
             <div>
                 <SidePage/>
