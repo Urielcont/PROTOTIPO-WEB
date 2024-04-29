@@ -10,6 +10,9 @@ function PerfilPage() {
 
     console.log(user.id)
 
+    // Obtener el primer carácter del nombre del usuario
+    const firstLetter = user.nombres.charAt(0).toUpperCase();
+
     return (
         <div className="m-0">
             <h1 className="mr-96 flex justify-center text-4xl text-black text-">Perfil</h1>
@@ -18,8 +21,11 @@ function PerfilPage() {
                 <Sidepage />
             </div>
             <div className="mt-1 flex justify-center">
+                {/* Reemplaza la imagen por un div circular con el primer carácter del nombre */}
                 <div className="ml-80 mt-2 bg-customBlue3 h-36 w-5/12 m-6 rounded-full flex items-center justify-center shadow">
-                    <img className="w-3/12 h-full mt-28 text-center rounded-full" src={hasbu} alt="" />
+                    <div className="w-28 h-28 mt-28 text-center rounded-full" style={{ backgroundColor: "#549CE4", fontSize: "70px", color: "#FFF" }}>
+                        {firstLetter}
+                    </div>
                 </div>
             </div>
 
@@ -31,7 +37,6 @@ function PerfilPage() {
                         </Link>
                     </div>
                     <div className="mb-4">
-
                         <label className=" text-customBlue2 font-semibold border-dashed text-base mb-1 ml-2" htmlFor="nombre"> Nombre(s): </label>
                         <label className="shadow border rounded w-full py-2 px-3 text-black leading-tight border-blue">{user.nombres}</label>
 
