@@ -18,7 +18,7 @@ function InicioPage() {
                 <SidePage />
             </div>
 
-            <div className="flex justify-center ml-72">
+            <div className="flex justify-center 2xl:ml-72 xl:ml-72 lg:ml-72 md:ml-72">
                 {/* Seccion del ph */
                     <div className="bg-[url('src/assets/images/inicio_img1.png')] w-[300px] h-screen justify-center flex flex-col items-center">
                         <h1 className="text-3xl font-semibold text-center mb-3">Nivel del agua</h1>

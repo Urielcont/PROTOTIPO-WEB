@@ -1,11 +1,8 @@
-import { useState } from "react"; 
+import { useState, useEffect } from "react"; 
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/Auth.context";
-import { useEffect } from "react";
-import 'tailwindcss/tailwind.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
 import logo from "../assets/images/logo_copy.png";
 
 function Login() {
@@ -13,24 +10,26 @@ function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [formCompleted, setFormCompleted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (loginErrors.length > 0) {
       Swal.fire({
         icon: 'error',
-        title: 'Usuario inexistente',
+        title: 'Hay un error, intenta de nuevo',
         text: loginErrors.join(', '),
       });
+      setLoading(false);
     }
   }, [loginErrors]);
 
   const onSubmit = handleSubmit(async (data) => {
-
+    setLoading(true);
     await signin(data);
+    setLoading(false);
 
-    if (user.rol ===true && user.estatus === true) {
+    if (signin()) {
       navigate("/Inicio");
-
       Swal.fire({
         icon: 'success',
         title: '¡Inicio de sesión exitoso!',
@@ -52,47 +51,47 @@ function Login() {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="flex">
-        <div className="border-4 border-cyan-600 w-80 h-1/3 rounded-3xl justify-items-center ml-64 mt-16">
-          {loginErrors.map((error, i) => (
-            <div className="bg-red-500 p-2 text-white text-center m-2" key={i}>
-              {error}
-            </div>
-          ))}
-          <form onSubmit={onSubmit} onChange={checkFormCompletion} className="p-8 flex flex-col">
-            <h1 className="text-2xl text-black-900 mb-4">Iniciar sesión</h1>
-
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-blue-200 p-8 hover:shadow-xl hover:shadow-blue-400 transition duration-300 ease-in-out">
+          <div className="flex justify-center">
+            <img className="w-24" src={logo} alt="logo" />
+          </div>
+          <h1 className="text-2xl text-center text-gray-800 font-semibold mt-4">Iniciar sesión</h1>
+          <form onSubmit={onSubmit} onChange={checkFormCompletion} className="mt-4">
+            {loginErrors.map((error, i) => (
+              <div className="bg-red-500 p-2 text-white text-center m-2" key={i}>
+                {error}
+              </div>
+            ))}
             <div className="mb-4">
-              <input className={`border-b-2 border-solid ${errors.correo ? 'border-red-500' : 'border-cyan-600'} w-full`} id="correo" type="email" placeholder="correo" {...register('correo', { required: true })} />
+              <input className="border-b-2 border-t-0 border-l-0 border-r-0 border-solid border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="correo" type="email" placeholder="Correo electrónico" {...register('correo', { required: true })} />
               {errors.correo && <p className="text-red-500">Correo es requerido</p>}
             </div>
             <div className="mb-4">
-              <input className={`border-b-2 border-solid ${errors.password ? 'border-red-500' : 'border-cyan-600'} w-full`} id="password" type="password" placeholder="Contraseña" {...register('password', { required: true })} />
-              {errors.password && <p className="text-red-500">Contraseña es requerido</p>}
-            </div>
+              <input className="border-b-2 border-t-0 border-l-0 border-r-0 border-solid border-blue-500 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="password" type="password" placeholder="Contraseña" {...register('password', { required: true })} />
+              {errors.password && <p className="text-red-500">Contraseña es requerida</p>}
+              </div>
             <button
               type="submit"
-              disabled={!formCompleted}
+              disabled={!formCompleted || loading}
               id="botonIngresar"
-              className={`rounded-full self-center text-white p-2 w-36 ${
+              className={`rounded-full self-center text-white p-2 w-full mt-4 ${
                 formCompleted
                   ? "bg-blue-500 hover:bg-blue-600"
-                  : "disabled-button"
+                  : "bg-gray-400 cursor-not-allowed"
               }`}
             >
-              Entrar
+              {loading ? (
+                <svg className="animate-spin h-5 w-5 ml-40" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647zM20 12c0-3.042-1.135-5.824-3-7.938l-3 2.647A7.962 7.962 0 0120 12h4zm-7 7.938A7.962 7.962 0 0112 20v4c3.042 0 5.824-1.135 7.938-3l-2.647-3zM7.938 4A7.962 7.962 0 0112 4V0c-3.042 0-5.824 1.135-7.938 3l2.647 3z"></path>
+                </svg>
+              ) : (
+                'Entrar'
+              )}
             </button>
           </form>
-        </div>
-        <div className="flex-1 flex justify-end">
-          <div className='bg-indigo-500 w-3/4 h-screen p-8 text-white bg-cover flex justify-center flex-col' style={{backgroundImage: "url('https://i.pinimg.com/564x/da/54/23/da542336e9bb92257fe2b2aedf30060a.jpg')"}}>
-            <div className='text-center'>
-              <h1 className="text-7xl text-gray-900 mb-4">Bienvenido</h1> 
-              <img className="ml-56" src={logo} alt="logo" />
-              <p className="mt-4 text-gray-800">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis veritatis fuga repudiandae nostrum exercitationem quo, fugit necessitatibus? Non vel reprehenderit architecto hic, explicabo dolorem autem minima aspernatur eum magnam id!</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

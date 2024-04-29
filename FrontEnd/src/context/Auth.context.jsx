@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest, deleteUsersRequest, createUserRequest } from "../api/auth";
+import { RegistrarUsuario, login, verifyTokenRequest, getUserRequest, getUsersRequest, updateUserRequest, deleteUsersRequest, createUserRequest, restoreUserRequest } from "../api/auth";
 
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
@@ -111,6 +111,15 @@ export const AuthProvider = ({ children }) => {
 
         }
     }
+    const restoreUser = async (id) =>{
+        try {
+            const res = await restoreUserRequest(id)
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
     
     useEffect(() => {
         if (errors.length > 0) {
@@ -159,6 +168,7 @@ export const AuthProvider = ({ children }) => {
             getUsers,
             updateUser,
             deleteUser,
+            restoreUser,
             agregarUsers,
             user,
             isAuth,

@@ -18,5 +18,13 @@ export const deleteUserRequest = async (iduser) => {
         throw new Error("Error al eliminar usuario");
     }
 };
+export const restoreUserRequest = async (id) => {
+    try {
+        await axios.put(`/restaurarUsuario/${id}`);
+    } catch (error) {
+        console.error("Error al restaurar usuario:", error);
+        throw new Error("Error al restaurar usuario");
+    }
+};
 export const getDeletedUsersRequest = () => axios.get("/usuarios/eliminados");
 export const deleteUsersRequest = (id)=>axios.delete(`/usuario/${id}`);
