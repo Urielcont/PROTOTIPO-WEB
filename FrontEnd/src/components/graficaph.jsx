@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 export function GraficaPh() {
   const { historialPh } = useContext(SensoresContext);
-const ultimos10Registros = historialPh.slice(0, 10);
+const ultimos10Registros = historialPh.slice(0, 10).reverse();
 
 const chartdata = ultimos10Registros.map(item => ({
   date: new Date(item.fecha).toLocaleDateString(), 

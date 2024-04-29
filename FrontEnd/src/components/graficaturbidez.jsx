@@ -7,7 +7,7 @@ import { SensoresContext } from '../context/sensores.context';
 
 export function GraficaTur() {
   const { historialCalidad } = useContext(SensoresContext);
-const ultimos10Registros = historialCalidad.slice(0, 10);
+const ultimos10Registros = historialCalidad.slice(0, 10).reverse();
 
 const chartdata = ultimos10Registros.map(item => ({
   date: new Date(item.fecha).toLocaleDateString(), 

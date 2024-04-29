@@ -14,7 +14,7 @@ function Sidepage() {
   const handleLogout = () => {
     Swal.fire({
       title: 'Seguro de salir?',
-      text: "Estás Link punto de cerrar sesión",
+      text: "Estás a punto de cerrar sesión",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
